@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Прогрес (Місяць)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            padding: 64px 23px 20px;
+        }
+
+        .title {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 29px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0 23px;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+            padding: 8px 0;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #BBE0FF;
+            border-bottom-color: #BBE0FF;
+        }
+
+        .content {
+            padding: 0 23px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .chart-card {
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chart-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+        }
+
+        .chart {
+            width: 100%;
+            height: 200px;
+            position: relative;
+        }
+
+        .weight-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 39px;
+            text-align: center;
+            margin: 12px 0;
+        }
+
+        .weight-change {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+        }
+
+        .week-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .stat-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 29px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 390px;
+            width: 100%;
+            height: 80px;
+            background: rgba(187, 224, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 10px 0 20px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-item.active .nav-label {
+            color: #BBE0FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Прогрес</h1>
+        </div>
+
+        <div class="tabs">
+            <div class="tab" onclick="goToWeek()">Тиждень</div>
+            <div class="tab active">Місяць</div>
+            <div class="tab" onclick="goToYear()">Рік</div>
+        </div>
+
+        <div class="content">
+            <div class="chart-card">
+                <h3 class="chart-title">Вага</h3>
+                <div class="chart">
+                    <svg width="100%" height="100%" viewBox="0 0 336 184" fill="none" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#BBE0FF" stop-opacity="0.3"/>
+                                <stop offset="100%" stop-color="#BBE0FF" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M45.229 118.433C24.4175 158.209 8.84544 144.773 0.523663 137.938V183.451H335.524V10.4044C316.945 -3.59922 307.655 -3.59936 292.56 47.9144C280.484 89.1254 270.726 92.9265 256.564 92.9265C225.212 92.9265 228.695 54.6417 211.278 46.4137C168.314 27.4092 173.192 104.93 152.638 120.934C122.447 144.44 110.522 112.853 96.9015 96.4272C73.6779 68.4201 63.8079 82.924 45.229 118.433Z" fill="url(#gradient)"/>
+                        <path d="M2.50006 137.95C10.7237 144.784 26.112 158.216 46.6779 118.45C65.0376 82.9508 74.7911 68.4508 97.7407 96.4504C111.201 112.872 120.31 142.451 152.82 120.95C178.524 103.951 168.311 27.4508 210.767 46.4503C227.979 54.6761 224.537 92.9507 255.519 92.9507C269.514 92.9507 279.157 89.1506 291.091 47.9506C306.008 -3.5494 315.188 -3.54926 333.547 10.4507" stroke="#BBE0FF" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="42" cy="138" r="4" fill="white" stroke="#BBE0FF" stroke-width="2"/>
+                        <circle cx="126" cy="96" r="4" fill="white" stroke="#BBE0FF" stroke-width="2"/>
+                        <circle cx="210" cy="46" r="4" fill="white" stroke="#BBE0FF" stroke-width="2"/>
+                        <circle cx="294" cy="48" r="4" fill="white" stroke="#BBE0FF" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="weight-value">68.5 кг</div>
+                <div class="weight-change">-4.8 кг за місяць</div>
+                <div class="week-label">4 тижні</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Середня вага</span>
+                    <span class="stat-value">70.1 кг</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Найнижча вага</span>
+                    <span class="stat-value">68.1 кг</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Середні калорії</span>
+                    <span class="stat-value">1,380</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Тренувань</span>
+                    <span class="stat-value">16</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item" onclick="goToHome()">
+                <svg class="nav-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M33.3333 31.6667V17.5C33.3333 17.2413 33.2731 16.9861 33.1574 16.7546C33.0417 16.5232 32.8737 16.3219 32.6667 16.1667L21 7.41667C20.7115 7.2003 20.3606 7.08333 20 7.08333C19.6394 7.08333 19.2885 7.2003 19 7.41667L7.33333 16.1667C7.12634 16.3219 6.95833 16.5232 6.84262 16.7546C6.72691 16.9861 6.66667 17.2413 6.66667 17.5V31.6667C6.66667 32.1087 6.84226 32.5326 7.15482 32.8452C7.46738 33.1577 7.89131 33.3333 8.33333 33.3333H15C15.442 33.3333 15.866 33.1577 16.1785 32.8452C16.4911 32.5326 16.6667 32.1087 16.6667 31.6667V26.6667C16.6667 26.2246 16.8423 25.8007 17.1548 25.4882C17.4674 25.1756 17.8913 25 18.3333 25H21.6667C22.1087 25 22.5326 25.1756 22.8452 25.4882C23.1577 25.8007 23.3333 26.2246 23.3333 26.6667V31.6667C23.3333 32.1087 23.5089 32.5326 23.8215 32.8452C24.134 33.1577 24.558 33.3333 25 33.3333H31.6667C32.1087 33.3333 32.5326 33.1577 32.8452 32.8452C33.1577 32.5326 33.3333 32.1087 33.3333 31.6667Z" fill="white"/>
+                </svg>
+                <span class="nav-label">Головна</span>
+            </div>
+            <div class="nav-item active">
+                <svg class="nav-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M17.25 35C16.6977 35 16.25 34.5523 16.25 34V6C16.25 5.44772 16.6977 5 17.25 5H22.75C23.3023 5 23.75 5.44772 23.75 6V34C23.75 34.5523 23.3023 35 22.75 35H17.25ZM6 35C5.44772 35 5 34.5523 5 34V18.5C5 17.9477 5.44772 17.5 6 17.5H11.5C12.0523 17.5 12.5 17.9477 12.5 18.5V34C12.5 34.5523 12.0523 35 11.5 35H6ZM28.5 35C27.9477 35 27.5 34.5523 27.5 34V13.5C27.5 12.9477 27.9477 12.5 28.5 12.5H34C34.5523 12.5 35 12.9477 35 13.5V34C35 34.5523 34.5523 35 34 35H28.5Z" fill="#BBE0FF"/>
+                </svg>
+                <span class="nav-label">Прогрес</span>
+            </div>
+            <div class="nav-item" onclick="goToDiary()">
+                <svg class="nav-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M28.3333 3.33333H8.33333C7.89131 3.33333 7.46738 3.50893 7.15482 3.82149C6.84226 4.13405 6.66667 4.55797 6.66667 5V31.6667C6.66667 32.1087 6.84226 32.5326 7.15482 32.8452C7.46738 33.1577 7.89131 33.3333 8.33333 33.3333H10V35C10 35.442 10.1756 35.866 10.4882 36.1785C10.8007 36.4911 11.2246 36.6667 11.6667 36.6667C12.1087 36.6667 12.5326 36.4911 12.8452 36.1785C13.1577 35.866 13.3333 35.442 13.3333 35V33.3333H28.3333C29.6594 33.3333 30.9312 32.8065 31.8689 31.8689C32.8065 30.9312 33.3333 29.6594 33.3333 28.3333V8.33333C33.3333 7.00725 32.8065 5.73548 31.8689 4.7978C30.9312 3.86012 29.6594 3.33333 28.3333 3.33333ZM23.3333 30H10V6.66667H23.3333V30ZM30 28.3333C30 28.7754 29.8244 29.1993 29.5118 29.5118C29.1993 29.8244 28.7754 30 28.3333 30H26.6667V6.66667H28.3333C28.7754 6.66667 29.1993 6.84226 29.5118 7.15482C29.8244 7.46738 30 7.89131 30 8.33333V28.3333Z" fill="white"/>
+                </svg>
+                <span class="nav-label">Щоденник</span>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        function goToHome() { window.location.href = 'diary-page.html'; }
+        function goToDiary() { window.location.href = 'diary-page.html'; }
+        function goToWeek() { window.location.href = 'progress-page-week.html'; }
+        function goToYear() { window.location.href = 'progress-page-year.html'; }
+    </script>
+</body>
+</html>

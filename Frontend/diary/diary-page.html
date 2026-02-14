@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Щоденник</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+            padding-bottom: 80px;
+        }
+
+        .content {
+            padding: 20px 23px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .date-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 44px;
+        }
+
+        .date-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+        }
+
+        .arrow {
+            cursor: pointer;
+        }
+
+        .progress-ring {
+            position: relative;
+            width: 117px;
+            height: 117px;
+            margin: 16px auto;
+        }
+
+        .ring-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .ring-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 29px;
+        }
+
+        .ring-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 17px;
+        }
+
+        .stats-grid {
+            display: flex;
+            gap: 7px;
+        }
+
+        .stat-card {
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 8px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+        }
+
+        .stat-values {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-current {
+            color: #FEFFFC;
+        }
+
+        .stat-remaining {
+            color: #484646;
+        }
+
+        .meal-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .meal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .meal-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .meal-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .meal-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+        }
+
+        .add-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .meal-divider {
+            height: 0.5px;
+            background: #A8A8A8;
+        }
+
+        .food-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .food-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+        }
+
+        .food-calories {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 390px;
+            width: 100%;
+            height: 80px;
+            background: rgba(187, 224, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 10px 0 20px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .nav-item:hover {
+            opacity: 0.8;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-item.active .nav-label {
+            color: #BBE0FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="date-header">
+                <svg class="arrow" width="15" height="9" fill="none" viewBox="0 0 15 9">
+                    <path d="M7.49577 9C7.64258 9 7.77809 8.97348 7.90232 8.92043C8.02654 8.86149 8.14512 8.77309 8.25805 8.65521L14.712 1.76817C14.904 1.56778 15 1.32613 15 1.04322C15 0.848723 14.9548 0.674853 14.8645 0.521611C14.7798 0.362476 14.6612 0.235757 14.5088 0.141454C14.3619 0.0471517 14.1982 4.25136e-07 14.0175 4.33034e-07C13.7465 4.44882e-07 13.5065 0.109038 13.2976 0.327112L7.49577 6.5334L1.69396 0.327113C1.48504 0.109038 1.24788 9.91212e-07 0.982496 1.00281e-06C0.79616 1.01096e-06 0.629588 0.0471523 0.482778 0.141455C0.335968 0.235757 0.220215 0.362476 0.135517 0.521612C0.0451723 0.674854 3.70983e-08 0.848724 4.56001e-08 1.04322C5.79664e-08 1.32613 0.0931678 1.56778 0.279503 1.76817L6.73348 8.65521C6.84641 8.77309 6.96499 8.86149 7.08922 8.92043C7.21344 8.97348 7.34896 9 7.49577 9Z" fill="white"/>
+                </svg>
+                <h2 class="date-text">Сьогодні</h2>
+                <svg class="arrow" width="15" height="9" fill="none" viewBox="0 0 15 9" style="transform: rotate(180deg);">
+                    <path d="M7.49577 9C7.64258 9 7.77809 8.97348 7.90232 8.92043C8.02654 8.86149 8.14512 8.77309 8.25805 8.65521L14.712 1.76817C14.904 1.56778 15 1.32613 15 1.04322C15 0.848723 14.9548 0.674853 14.8645 0.521611C14.7798 0.362476 14.6612 0.235757 14.5088 0.141454C14.3619 0.0471517 14.1982 4.25136e-07 14.0175 4.33034e-07C13.7465 4.44882e-07 13.5065 0.109038 13.2976 0.327112L7.49577 6.5334L1.69396 0.327113C1.48504 0.109038 1.24788 9.91212e-07 0.982496 1.00281e-06C0.79616 1.01096e-06 0.629588 0.0471523 0.482778 0.141455C0.335968 0.235757 0.220215 0.362476 0.135517 0.521612C0.0451723 0.674854 3.70983e-08 0.848724 4.56001e-08 1.04322C5.79664e-08 1.32613 0.0931678 1.56778 0.279503 1.76817L6.73348 8.65521C6.84641 8.77309 6.96499 8.86149 7.08922 8.92043C7.21344 8.97348 7.34896 9 7.49577 9Z" fill="white"/>
+                </svg>
+            </div>
+
+            <div class="progress-ring">
+                <svg width="117" height="117" viewBox="0 0 117 117" fill="none">
+                    <circle cx="58.5" cy="58.5" r="52" fill="transparent" stroke="rgba(187, 224, 255, 0.1)" stroke-width="13"/>
+                    <circle cx="58.5" cy="58.5" r="52" fill="transparent" stroke="#BBE0FF" stroke-width="13" stroke-dasharray="327" stroke-dashoffset="163" stroke-linecap="round" transform="rotate(-90 58.5 58.5)"/>
+                </svg>
+                <div class="ring-center">
+                    <p class="ring-value">1000</p>
+                    <p class="ring-label">ккал</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Вуглеводи</span>
+                    <div class="stat-values">
+                        <span class="stat-current">140</span>
+                        <span class="stat-remaining">67</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Жири</span>
+                    <div class="stat-values">
+                        <span class="stat-current">85</span>
+                        <span class="stat-remaining">29</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Білки</span>
+                    <div class="stat-values">
+                        <span class="stat-current">175</span>
+                        <span class="stat-remaining">126</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakfast -->
+            <div class="meal-section">
+                <div class="meal-header">
+                    <div class="meal-info">
+                        <svg class="meal-icon" width="50" height="26" viewBox="0 0 50 26" fill="none">
+                            <path d="M47.7091 18.7192C51.1826 12.6596 49.0983 4.78104 42.4347 2.68814C36.6958 0.885681 30.689 -0.028527 24.6234 0.000678284C18.5578 0.0298835 12.5601 1.00189 6.83885 2.85953C0.195742 5.0165 -1.81264 12.9148 1.71911 18.9406V18.9406C5.25086 24.9664 13.0591 26.7014 19.9659 25.6625C21.5426 25.4254 23.1397 25.3013 24.7452 25.2936C26.3507 25.2858 27.9489 25.3945 29.5278 25.6165C36.4443 26.5888 44.2355 24.7787 47.7091 18.7192V18.7192Z" fill="white"/>
+                        </svg>
+                        <h3 class="meal-title">Сніданок</h3>
+                    </div>
+                    <button class="add-button" onclick="addMeal('breakfast')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M13.2 10.8V6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2ZM12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24Z" fill="#BBE0FF"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="meal-divider"></div>
+                <div class="food-item">
+                    <span class="food-name">Вівсянка на воді</span>
+                    <span class="food-calories">320 ккал</span>
+                </div>
+                <div class="meal-divider"></div>
+                <div class="food-item">
+                    <span class="food-name">Яєчня з 2-х яєць</span>
+                    <span class="food-calories">180 ккал</span>
+                </div>
+            </div>
+
+            <!-- Lunch -->
+            <div class="meal-section">
+                <div class="meal-header">
+                    <div class="meal-info">
+                        <svg class="meal-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <path d="M28.3333 3.33333H8.33333C7.89131 3.33333 7.46738 3.50893 7.15482 3.82149C6.84226 4.13405 6.66667 4.55797 6.66667 5V31.6667C6.66667 32.1087 6.84226 32.5326 7.15482 32.8452C7.46738 33.1577 7.89131 33.3333 8.33333 33.3333H10V35C10 35.442 10.1756 35.866 10.4882 36.1785C10.8007 36.4911 11.2246 36.6667 11.6667 36.6667C12.1087 36.6667 12.5326 36.4911 12.8452 36.1785C13.1577 35.866 13.3333 35.442 13.3333 35V33.3333H28.3333C29.6594 33.3333 30.9312 32.8065 31.8689 31.8689C32.8065 30.9312 33.3333 29.6594 33.3333 28.3333V8.33333C33.3333 7.00725 32.8065 5.73548 31.8689 4.7978C30.9312 3.86012 29.6594 3.33333 28.3333 3.33333ZM23.3333 30H10V6.66667H23.3333V30ZM30 28.3333C30 28.7754 29.8244 29.1993 29.5118 29.5118C29.1993 29.8244 28.7754 30 28.3333 30H26.6667V6.66667H28.3333C28.7754 6.66667 29.1993 6.84226 29.5118 7.15482C29.8244 7.46738 30 7.89131 30 8.33333V28.3333Z" fill="white"/>
+                        </svg>
+                        <h3 class="meal-title">Обід</h3>
+                    </div>
+                    <button class="add-button" onclick="addMeal('lunch')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M13.2 10.8V6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2ZM12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24Z" fill="#BBE0FF"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="meal-divider"></div>
+            </div>
+
+            <!-- Dinner -->
+            <div class="meal-section">
+                <div class="meal-header">
+                    <div class="meal-info">
+                        <svg class="meal-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <path d="M33.3333 31.6667V17.5C33.3333 17.2413 33.2731 16.9861 33.1574 16.7546C33.0417 16.5232 32.8737 16.3219 32.6667 16.1667L21 7.41667C20.7115 7.2003 20.3606 7.08333 20 7.08333C19.6394 7.08333 19.2885 7.2003 19 7.41667L7.33333 16.1667C7.12634 16.3219 6.95833 16.5232 6.84262 16.7546C6.72691 16.9861 6.66667 17.2413 6.66667 17.5V31.6667C6.66667 32.1087 6.84226 32.5326 7.15482 32.8452C7.46738 33.1577 7.89131 33.3333 8.33333 33.3333H15C15.442 33.3333 15.866 33.1577 16.1785 32.8452C16.4911 32.5326 16.6667 32.1087 16.6667 31.6667V26.6667C16.6667 26.2246 16.8423 25.8007 17.1548 25.4882C17.4674 25.1756 17.8913 25 18.3333 25H21.6667C22.1087 25 22.5326 25.1756 22.8452 25.4882C23.1577 25.8007 23.3333 26.2246 23.3333 26.6667V31.6667C23.3333 32.1087 23.5089 32.5326 23.8215 32.8452C24.134 33.1577 24.558 33.3333 25 33.3333H31.6667C32.1087 33.3333 32.5326 33.1577 32.8452 32.8452C33.1577 32.5326 33.3333 32.1087 33.3333 31.6667Z" fill="white"/>
+                        </svg>
+                        <h3 class="meal-title">Вечеря</h3>
+                    </div>
+                    <button class="add-button" onclick="addMeal('dinner')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M13.2 10.8V6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2ZM12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24Z" fill="#BBE0FF"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="meal-divider"></div>
+            </div>
+
+            <!-- Snack -->
+            <div class="meal-section">
+                <div class="meal-header">
+                    <div class="meal-info">
+                        <svg class="meal-icon" width="33" height="32" viewBox="0 0 33 32" fill="none">
+                            <path d="M11.6873 5.74667C12.684 2.83 16.714 2.74167 17.8956 5.48167L17.9956 5.74833L19.3406 9.68167C19.6489 10.5837 20.147 11.4092 20.8013 12.1024C21.4557 12.7956 22.2511 13.3404 23.134 13.7L23.4956 13.835L27.429 15.1783C30.3456 16.175 30.434 20.205 27.6956 21.3867L27.429 21.4867L23.4956 22.8317C22.5933 23.1397 21.7675 23.6377 21.074 24.2921C20.3805 24.9465 19.8355 25.742 19.4756 26.625L19.3406 26.985L17.9973 30.92C17.0006 33.8367 12.9706 33.925 11.7906 31.1867L11.6873 30.92L10.344 26.9867C10.0359 26.0843 9.53792 25.2585 8.88353 24.565C8.22915 23.8715 7.43362 23.3265 6.55063 22.9667L6.19063 22.8317L2.2573 21.4883C-0.661037 20.4917 -0.74937 16.4617 1.99063 15.2817L2.2573 15.1783L6.19063 13.835C7.09269 13.5268 7.91815 13.0287 8.61134 12.3743C9.30452 11.7199 9.84932 10.9245 10.209 10.0417L10.344 9.68167L11.6873 5.74667ZM14.8423 6.82333L13.499 10.7567C13.0296 12.1322 12.2661 13.3888 11.2615 14.4392C10.257 15.4895 9.03554 16.3082 7.6823 16.8383L7.26563 16.99L3.3323 18.3333L7.26563 19.6767C8.64113 20.146 9.8978 20.9096 10.9481 21.9141C11.9984 22.9187 12.8172 24.1401 13.3473 25.4933L13.499 25.91L14.8423 29.8433L16.1856 25.91C16.655 24.5345 17.4185 23.2778 18.4231 22.2275C19.4276 21.1772 20.6491 20.3585 22.0023 19.8283L22.419 19.6783L26.3523 18.3333L22.419 16.99C21.0435 16.5206 19.7868 15.7571 18.7365 14.7526C17.6861 13.748 16.8674 12.5266 16.3373 11.1733L16.1873 10.7567L14.8423 6.82333ZM28.1756 3.01146e-07C28.4874 -3.93287e-07 28.793 0.0874638 29.0575 0.252453C29.3221 0.417441 29.5351 0.653338 29.6723 0.933333L29.7523 1.12833L30.3356 2.83833L32.0473 3.42167C32.3598 3.52783 32.6337 3.72436 32.8343 3.98636C33.035 4.24836 33.1534 4.56403 33.1744 4.89337C33.1955 5.22271 33.1183 5.55088 32.9527 5.83631C32.787 6.12174 32.5404 6.35157 32.244 6.49667L32.0473 6.57667L30.3373 7.16L29.754 8.87167C29.6476 9.18405 29.4509 9.45783 29.1888 9.65832C28.9267 9.85881 28.611 9.97699 28.2817 9.99787C27.9524 10.0188 27.6243 9.94141 27.3389 9.77563C27.0536 9.60985 26.8239 9.36311 26.679 9.06667L26.599 8.87167L26.0156 7.16167L24.304 6.57833C23.9915 6.47217 23.7176 6.27564 23.5169 6.01364C23.3163 5.75164 23.1979 5.43597 23.1768 5.10663C23.1558 4.77729 23.233 4.44912 23.3986 4.16369C23.5642 3.87826 23.8109 3.64843 24.1073 3.50333L24.304 3.42333L26.014 2.84L26.5973 1.12833C26.7097 0.799043 26.9223 0.513181 27.2054 0.310831C27.4884 0.108482 27.8277 -0.000208802 28.1756 3.01146e-07Z" fill="white"/>
+                        </svg>
+                        <h3 class="meal-title">Перекус</h3>
+                    </div>
+                    <button class="add-button" onclick="addMeal('snack')">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M13.2 10.8V6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2ZM12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24Z" fill="#BBE0FF"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="meal-divider"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <div class="nav-item active">
+                <svg class="nav-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M33.3333 31.6667V17.5C33.3333 17.2413 33.2731 16.9861 33.1574 16.7546C33.0417 16.5232 32.8737 16.3219 32.6667 16.1667L21 7.41667C20.7115 7.2003 20.3606 7.08333 20 7.08333C19.6394 7.08333 19.2885 7.2003 19 7.41667L7.33333 16.1667C7.12634 16.3219 6.95833 16.5232 6.84262 16.7546C6.72691 16.9861 6.66667 17.2413 6.66667 17.5V31.6667C6.66667 32.1087 6.84226 32.5326 7.15482 32.8452C7.46738 33.1577 7.89131 33.3333 8.33333 33.3333H15C15.442 33.3333 15.866 33.1577 16.1785 32.8452C16.4911 32.5326 16.6667 32.1087 16.6667 31.6667V26.6667C16.6667 26.2246 16.8423 25.8007 17.1548 25.4882C17.4674 25.1756 17.8913 25 18.3333 25H21.6667C22.1087 25 22.5326 25.1756 22.8452 25.4882C23.1577 25.8007 23.3333 26.2246 23.3333 26.6667V31.6667C23.3333 32.1087 23.5089 32.5326 23.8215 32.8452C24.134 33.1577 24.558 33.3333 25 33.3333H31.6667C32.1087 33.3333 32.5326 33.1577 32.8452 32.8452C33.1577 32.5326 33.3333 32.1087 33.3333 31.6667Z" fill="#BBE0FF"/>
+                </svg>
+                <span class="nav-label">Головна</span>
+            </div>
+
+            <div class="nav-item" onclick="goToProgress()">
+                <svg class="nav-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M17.25 35C16.6977 35 16.25 34.5523 16.25 34V6C16.25 5.44772 16.6977 5 17.25 5H22.75C23.3023 5 23.75 5.44772 23.75 6V34C23.75 34.5523 23.3023 35 22.75 35H17.25ZM6 35C5.44772 35 5 34.5523 5 34V18.5C5 17.9477 5.44772 17.5 6 17.5H11.5C12.0523 17.5 12.5 17.9477 12.5 18.5V34C12.5 34.5523 12.0523 35 11.5 35H6ZM28.5 35C27.9477 35 27.5 34.5523 27.5 34V13.5C27.5 12.9477 27.9477 12.5 28.5 12.5H34C34.5523 12.5 35 12.9477 35 13.5V34C35 34.5523 34.5523 35 34 35H28.5Z" fill="white"/>
+                </svg>
+                <span class="nav-label">Прогрес</span>
+            </div>
+
+            <div class="nav-item" onclick="goToDiary()">
+                <svg class="nav-icon" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M28.3333 3.33333H8.33333C7.89131 3.33333 7.46738 3.50893 7.15482 3.82149C6.84226 4.13405 6.66667 4.55797 6.66667 5V31.6667C6.66667 32.1087 6.84226 32.5326 7.15482 32.8452C7.46738 33.1577 7.89131 33.3333 8.33333 33.3333H10V35C10 35.442 10.1756 35.866 10.4882 36.1785C10.8007 36.4911 11.2246 36.6667 11.6667 36.6667C12.1087 36.6667 12.5326 36.4911 12.8452 36.1785C13.1577 35.866 13.3333 35.442 13.3333 35V33.3333H28.3333C29.6594 33.3333 30.9312 32.8065 31.8689 31.8689C32.8065 30.9312 33.3333 29.6594 33.3333 28.3333V8.33333C33.3333 7.00725 32.8065 5.73548 31.8689 4.7978C30.9312 3.86012 29.6594 3.33333 28.3333 3.33333ZM23.3333 30H10V6.66667H23.3333V30ZM30 28.3333C30 28.7754 29.8244 29.1993 29.5118 29.5118C29.1993 29.8244 28.7754 30 28.3333 30H26.6667V6.66667H28.3333C28.7754 6.66667 29.1993 6.84226 29.5118 7.15482C29.8244 7.46738 30 7.89131 30 8.33333V28.3333Z" fill="white"/>
+                </svg>
+                <span class="nav-label">Щоденник</span>
+            </div>
+        </nav>
+    </div>
+
+    <script>
+        function addMeal(mealType) {
+            window.location.href = 'add-meals-page.html?meal=' + mealType;
+        }
+
+        function goToProgress() {
+            window.location.href = 'progress-page-week.html';
+        }
+
+        function goToDiary() {
+            window.location.href = 'diary-page.html';
+        }
+    </script>
+</body>
+</html>

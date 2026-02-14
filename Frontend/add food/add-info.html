@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Додати їжу</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+        }
+
+        .header {
+            position: absolute;
+            top: 65px;
+            left: 22px;
+            width: 347px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-button {
+            background: rgba(244, 244, 244, 0.1);
+            border: none;
+            border-radius: 50px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(244, 244, 244, 0.15);
+        }
+
+        .title {
+            font-weight: 500;
+            font-size: 20px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .check-button {
+            width: 29px;
+            height: 18px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .check-button:hover {
+            opacity: 0.8;
+        }
+
+        .content {
+            position: absolute;
+            top: 158px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .food-header {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .food-name {
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+        }
+
+        .food-brand {
+            font-weight: 500;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .divider {
+            height: 0.5px;
+            background: #A8A8A8;
+            width: 356px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 40px;
+            width: 356px;
+        }
+
+        .input-label {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-field {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 3px;
+            height: 24px;
+            padding: 0 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+            text-align: right;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #BBE0FF;
+        }
+
+        .input-small {
+            width: 63px;
+        }
+
+        .input-medium {
+            width: 81px;
+        }
+
+        .stepper-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stepper-button {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid rgba(187, 224, 255, 0.5);
+            background: rgba(187, 224, 255, 0.1);
+            color: #BBE0FF;
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1;
+        }
+
+        .stepper-button:hover {
+            background: rgba(187, 224, 255, 0.25);
+        }
+
+        .stepper-button:active {
+            background: rgba(187, 224, 255, 0.35);
+        }
+
+        .nutrition-section {
+            display: flex;
+            gap: 31px;
+            align-items: center;
+        }
+
+        .calories-chart {
+            position: relative;
+            width: 101px;
+            height: 101px;
+            flex-shrink: 0;
+        }
+
+        .calories-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .calories-number {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 15px;
+            letter-spacing: 0.5px;
+            margin-bottom: 0;
+        }
+
+        .calories-label {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .macros-card {
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            height: 76px;
+            width: 224px;
+            position: relative;
+        }
+
+        .macros-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 212px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .macro-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            padding: 4px;
+        }
+
+        .macro-percentage {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 16px;
+            letter-spacing: 0.4px;
+        }
+
+        .macro-value {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+        }
+
+        .macro-label {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+        }
+
+        .macro-carbs {
+            color: #BBE0FF;
+        }
+
+        .macro-fats {
+            color: #FEFFFC;
+        }
+
+        .macro-protein {
+            color: #FFAD8F;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                    <path d="M13 4L7 10L13 16" stroke="#FEFFFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="title">Додати їжу</h1>
+            <div class="check-button" onclick="saveFood()">
+                <svg width="32" height="22" fill="none" viewBox="0 0 32 22">
+                    <path d="M1.5 8.04545L12.7778 19.5L30.5 1.5" stroke="#BBE0FF" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="food-header">
+                <h2 class="food-name">Пластівці вівсяні</h2>
+                <p class="food-brand">Геркулес</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="input-section">
+                <div class="input-row">
+                    <span class="input-label">Розмір порції</span>
+                    <input type="text" class="input-field input-small" id="portionSize" value="100 гр">
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Кіл-сть порцій</span>
+                    <div class="stepper-container">
+                        <button class="stepper-button" onclick="changePortionCount(-0.05)">−</button>
+                        <input type="text" class="input-field input-small" id="portionCount" value="0,35">
+                        <button class="stepper-button" onclick="changePortionCount(0.05)">+</button>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <span class="input-label">Прийом їжі</span>
+                    <select class="input-field input-medium" id="mealType">
+                        <option value="breakfast">Сніданок</option>
+                        <option value="lunch">Обід</option>
+                        <option value="dinner">Вечеря</option>
+                        <option value="snack">Перекус</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="nutrition-section">
+                <div class="calories-chart">
+                    <svg width="101" height="101" viewBox="0 0 101 101" fill="none">
+                        <!-- Background circle -->
+                        <circle cx="50.5" cy="50.5" r="47" fill="transparent" stroke="rgba(187, 224, 255, 0.1)" stroke-width="6"/>
+                        <!-- Blue segment (carbs - 34%) -->
+                        <path d="M101 50.5C101 63.8934 95.6795 76.7383 86.2089 86.2089C76.7383 95.6795 63.8934 101 50.5 101C37.1066 101 24.2617 95.6795 14.7911 86.2089C5.32053 76.7383 3.74353e-06 63.8934 1.72118e-06 50.5L6.40714 50.5C6.40714 62.1942 11.0526 73.4094 19.3216 81.6784C27.5907 89.9474 38.8059 94.5929 50.5 94.5929C62.1942 94.5929 73.4093 89.9474 81.6784 81.6784C89.9474 73.4093 94.5929 62.1942 94.5929 50.5H101Z" fill="#BBE0FF"/>
+                        <!-- White segment (fats - 15%) -->
+                        <path d="M101 50.5C101 60.0993 98.2641 69.4998 93.1128 77.5999C87.9615 85.6999 80.6083 92.164 71.9148 96.2346C63.2213 100.305 53.5477 101.814 44.0275 100.584C34.5074 99.3532 25.5351 95.435 18.1621 89.288C10.789 83.141 5.32071 75.02 2.39787 65.8765C-0.524965 56.7329 -0.781225 46.9458 1.65912 37.6618C4.09947 28.3779 9.13533 19.9818 16.1766 13.4574C23.2178 6.93304 31.9728 2.55066 41.4155 0.82383L42.5681 7.12645C34.3234 8.63419 26.6792 12.4606 20.5313 18.1572C14.3834 23.8538 9.98649 31.1846 7.85576 39.2907C5.72503 47.3967 5.94878 55.9421 8.50079 63.9256C11.0528 71.909 15.8273 78.9997 22.2649 84.3668C28.7025 89.7339 36.5364 93.155 44.8487 94.2292C53.161 95.3034 61.6073 93.9863 69.1978 90.4321C76.7883 86.8779 83.2086 81.234 87.7063 74.1616C92.204 67.0892 94.5929 58.8814 94.5929 50.5H101Z" fill="#FEFFFC"/>
+                        <!-- Orange segment (protein - 14%) - approximate -->
+                        <path d="M50.5 0C39.106 0 28.0394 4.15893 19.7206 11.6785L24.3978 16.9015C31.4289 10.6738 40.581 7.13243 50.5 7.13243V0Z" fill="#FFAD8F"/>
+                    </svg>
+                    <div class="calories-center">
+                        <p class="calories-number">189</p>
+                        <p class="calories-label">ккал</p>
+                    </div>
+                </div>
+
+                <div class="macros-card">
+                    <div class="macros-content">
+                        <div class="macro-item">
+                            <p class="macro-percentage">34%</p>
+                            <p class="macro-value macro-carbs">23 гр</p>
+                            <p class="macro-label">Вуглев.</p>
+                        </div>
+
+                        <div class="macro-item">
+                            <p class="macro-percentage">15%</p>
+                            <p class="macro-value macro-fats">2.2 гр</p>
+                            <p class="macro-label">Жири</p>
+                        </div>
+
+                        <div class="macro-item">
+                            <p class="macro-percentage">14%</p>
+                            <p class="macro-value macro-protein">4.6 гр</p>
+                            <p class="macro-label">Білки</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function saveFood() {
+            const portionSize = document.getElementById('portionSize').value;
+            const portionCount = document.getElementById('portionCount').value;
+            const mealType = document.getElementById('mealType').value;
+
+            console.log('Saving food:', {
+                name: 'Пластівці вівсяні',
+                brand: 'Геркулес',
+                portionSize,
+                portionCount,
+                mealType,
+                calories: 189,
+                macros: {
+                    carbs: 23,
+                    fats: 2.2,
+                    protein: 4.6
+                }
+            });
+
+            alert('Їжа збережена!');
+            window.history.back();
+        }
+
+        // Update nutrition values when portion count changes
+        function updateNutrition() {
+            const val = document.getElementById('portionCount').value;
+            const multiplier = parseFloat(val.replace(',', '.')) || 0;
+            
+            // Base values for 100g
+            const baseCalories = 189 / 0.35;
+            const baseCarbs = 23 / 0.35;
+            const baseFats = 2.2 / 0.35;
+            const baseProtein = 4.6 / 0.35;
+
+            // Calculate new values
+            const calories = Math.round(baseCalories * multiplier);
+            const carbs = (baseCarbs * multiplier).toFixed(1);
+            const fats = (baseFats * multiplier).toFixed(1);
+            const protein = (baseProtein * multiplier).toFixed(1);
+
+            // Update display
+            document.querySelector('.calories-number').textContent = calories;
+            document.querySelectorAll('.macro-value')[0].textContent = carbs + ' гр';
+            document.querySelectorAll('.macro-value')[1].textContent = fats + ' гр';
+            document.querySelectorAll('.macro-value')[2].textContent = protein + ' гр';
+        }
+
+        function changePortionCount(delta) {
+            const input = document.getElementById('portionCount');
+            let current = parseFloat(input.value.replace(',', '.')) || 0;
+            current = Math.max(0.05, current + delta);
+            current = Math.round(current * 100) / 100;
+            input.value = current.toFixed(2).replace('.', ',');
+            updateNutrition();
+        }
+
+        document.getElementById('portionCount').addEventListener('input', updateNutrition);
+    </script>
+</body>
+</html>

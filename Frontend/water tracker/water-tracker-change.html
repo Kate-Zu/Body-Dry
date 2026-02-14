@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Трекер води (Порції)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+        }
+
+        .header {
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 347px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-button {
+            background: rgba(244, 244, 244, 0.1);
+            border: none;
+            border-radius: 50px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(244, 244, 244, 0.15);
+        }
+
+        .title {
+            font-weight: 500;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .check-button {
+            width: 29px;
+            height: 18px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .check-button:hover {
+            opacity: 0.8;
+        }
+
+        .main-content {
+            position: absolute;
+            top: 125px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 344px;
+            display: flex;
+            flex-direction: column;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .water-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+        }
+
+        .water-label {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 21px;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: -0.4px;
+        }
+
+        .water-amount {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 34px;
+            color: white;
+        }
+
+        .cups-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .cups-row {
+            display: flex;
+            gap: 65px;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .cup-item {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .cup-item:hover {
+            opacity: 0.8;
+        }
+
+        .cup-icon {
+            width: 48px;
+            height: 48px;
+        }
+
+        .cup-label {
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 13px;
+            color: #7D7D7D;
+            text-align: center;
+            letter-spacing: -0.4px;
+        }
+
+        .page-control-section {
+            position: absolute;
+            bottom: 116px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            align-items: center;
+        }
+
+        .page-control {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 50px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50px;
+        }
+
+        .dot.inactive {
+            background: #BBBBC1;
+            opacity: 0.3;
+        }
+
+        .dot.active {
+            background: #BBE0FF;
+        }
+
+        .hint-text {
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 13px;
+            color: #7D7D7D;
+            text-align: center;
+            max-width: 154px;
+            letter-spacing: -0.4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                    <path d="M13 4L7 10L13 16" stroke="#FEFFFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="title">Трекер води</h1>
+            <div class="check-button" onclick="saveProgress()">
+                <svg width="32" height="22" fill="none" viewBox="0 0 32 22">
+                    <path d="M1.5 8.04545L12.7778 19.5L30.5 1.5" stroke="#BBE0FF" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="water-info">
+                <p class="water-label">Сьогоднішнє споживання води</p>
+                <p class="water-amount"><span id="currentWater">0.5</span> літра / 2.7 літра</p>
+            </div>
+
+            <div class="cups-grid">
+                <div class="cups-row">
+                    <div class="cup-item" onclick="addWater(0.1)">
+                        <svg class="cup-icon" fill="none" viewBox="0 0 48 48">
+                            <path d="M24 42C20.392 42 17.508 40.868 15.206 39.108C4.76 31.114 11.664 16.18 21.602 7.044C22.2549 6.44086 23.1111 6.10591 24 6.10591C24.8889 6.10591 25.7451 6.44086 26.398 7.044C36.338 16.18 43.238 31.114 32.794 39.108C30.492 40.868 27.608 42 24 42Z" stroke="#BBE0FF" stroke-width="3"/>
+                        </svg>
+                        <p class="cup-label">100 ml</p>
+                    </div>
+                    <div class="cup-item" onclick="addWater(0.2)">
+                        <svg class="cup-icon" fill="none" viewBox="0 0 48 48">
+                            <path d="M24 42C20.392 42 17.508 40.868 15.206 39.108C4.76 31.114 11.664 16.18 21.602 7.044C22.2549 6.44086 23.1111 6.10591 24 6.10591C24.8889 6.10591 25.7451 6.44086 26.398 7.044C36.338 16.18 43.238 31.114 32.794 39.108C30.492 40.868 27.608 42 24 42Z" stroke="#BBE0FF" stroke-width="3"/>
+                        </svg>
+                        <p class="cup-label">200 ml</p>
+                    </div>
+                    <div class="cup-item" onclick="addWater(0.5)">
+                        <svg class="cup-icon" fill="none" viewBox="0 0 48 48">
+                            <path d="M24 42C20.392 42 17.508 40.868 15.206 39.108C4.76 31.114 11.664 16.18 21.602 7.044C22.2549 6.44086 23.1111 6.10591 24 6.10591C24.8889 6.10591 25.7451 6.44086 26.398 7.044C36.338 16.18 43.238 31.114 32.794 39.108C30.492 40.868 27.608 42 24 42Z" stroke="#BBE0FF" stroke-width="3"/>
+                        </svg>
+                        <p class="cup-label">500 ml</p>
+                    </div>
+                </div>
+
+                <div class="cups-row">
+                    <div class="cup-item" onclick="addWater(0.75)">
+                        <svg class="cup-icon" fill="none" viewBox="0 0 48 48">
+                            <path d="M24 42C20.392 42 17.508 40.868 15.206 39.108C4.76 31.114 11.664 16.18 21.602 7.044C22.2549 6.44086 23.1111 6.10591 24 6.10591C24.8889 6.10591 25.7451 6.44086 26.398 7.044C36.338 16.18 43.238 31.114 32.794 39.108C30.492 40.868 27.608 42 24 42Z" stroke="#BBE0FF" stroke-width="3"/>
+                        </svg>
+                        <p class="cup-label">750 ml</p>
+                    </div>
+                    <div class="cup-item" onclick="addWater(1.0)">
+                        <svg class="cup-icon" fill="none" viewBox="0 0 48 48">
+                            <path d="M24 42C20.392 42 17.508 40.868 15.206 39.108C4.76 31.114 11.664 16.18 21.602 7.044C22.2549 6.44086 23.1111 6.10591 24 6.10591C24.8889 6.10591 25.7451 6.44086 26.398 7.044C36.338 16.18 43.238 31.114 32.794 39.108C30.492 40.868 27.608 42 24 42Z" stroke="#BBE0FF" stroke-width="3"/>
+                        </svg>
+                        <p class="cup-label">1000 ml</p>
+                    </div>
+                    <div class="cup-item" onclick="addWater(1.5)">
+                        <svg class="cup-icon" fill="none" viewBox="0 0 48 48">
+                            <path d="M24 42C20.392 42 17.508 40.868 15.206 39.108C4.76 31.114 11.664 16.18 21.602 7.044C22.2549 6.44086 23.1111 6.10591 24 6.10591C24.8889 6.10591 25.7451 6.44086 26.398 7.044C36.338 16.18 43.238 31.114 32.794 39.108C30.492 40.868 27.608 42 24 42Z" stroke="#BBE0FF" stroke-width="3"/>
+                        </svg>
+                        <p class="cup-label">1500 ml</p>
+                    </div>
+                </div>
+
+                <div class="cups-row">
+                    <div class="cup-item" onclick="addWater(2.0)">
+                        <svg class="cup-icon" fill="none" viewBox="0 0 48 48">
+                            <path d="M24 42C20.392 42 17.508 40.868 15.206 39.108C4.76 31.114 11.664 16.18 21.602 7.044C22.2549 6.44086 23.1111 6.10591 24 6.10591C24.8889 6.10591 25.7451 6.44086 26.398 7.044C36.338 16.18 43.238 31.114 32.794 39.108C30.492 40.868 27.608 42 24 42Z" stroke="#BBE0FF" stroke-width="3"/>
+                        </svg>
+                        <p class="cup-label">2000 ml</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-control-section">
+            <div class="page-control">
+                <div class="dot inactive"></div>
+                <div class="dot active"></div>
+            </div>
+            <p class="hint-text">Проведіть пальцем праворуч для визначення порції</p>
+        </div>
+    </div>
+
+    <script>
+        let currentWater = 0.5;
+        const goalWater = 2.7;
+
+        function updateDisplay() {
+            const rounded = Math.round(currentWater * 10) / 10;
+            document.getElementById('currentWater').textContent = rounded.toFixed(1);
+        }
+
+        function addWater(amount) {
+            currentWater += amount;
+            if (currentWater > goalWater) {
+                currentWater = goalWater;
+            }
+            updateDisplay();
+        }
+
+        function goBack() {
+            window.location.href = 'water-tracker.html';
+        }
+
+        function saveProgress() {
+            console.log('Water intake saved:', currentWater.toFixed(1), 'liters');
+            alert(`Додано води! Всього: ${currentWater.toFixed(1)} літра`);
+            // Navigate to home or previous screen
+        }
+
+        // Initialize
+        updateDisplay();
+    </script>
+</body>
+</html>

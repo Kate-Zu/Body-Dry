@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Видалити акаунт</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: rgba(6, 6, 3, 0.8);
+            backdrop-filter: blur(10px);
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-container {
+            max-width: 390px;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 6px;
+            box-shadow: 0px -2px 4px 0px rgba(0,0,0,0.25);
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+            padding: 5px 10px;
+            width: 378px;
+            gap: 80px;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            flex: 1;
+        }
+
+        .close-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .divider {
+            width: 378px;
+            height: 0.5px;
+            background: #A8A8A8;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 10px 15px;
+        }
+
+        .button {
+            padding: 17px 51px;
+            border-radius: 61px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .button-no {
+            background: transparent;
+            color: #FEFFFC;
+            border: 2px solid #FEFFFC;
+        }
+
+        .button-no:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .button-yes {
+            background: #FEFFFC;
+            color: #060603;
+            border: none;
+        }
+
+        .button-yes:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .home-indicator {
+            height: 21px;
+            width: 390px;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Видалити акаунт?</h2>
+                <button class="close-button" onclick="closeModal()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.29289 1.29289C1.68342 0.902369 2.31658 0.902369 2.70711 1.29289L8 6.58579L13.2929 1.29289C13.6834 0.902369 14.3166 0.902369 14.7071 1.29289C15.0976 1.68342 15.0976 2.31658 14.7071 2.70711L9.41421 8L14.7071 13.2929C15.0976 13.6834 15.0976 14.3166 14.7071 14.7071C14.3166 15.0976 13.6834 15.0976 13.2929 14.7071L8 9.41421L2.70711 14.7071C2.31658 15.0976 1.68342 15.0976 1.29289 14.7071C0.902369 14.3166 0.902369 13.6834 1.29289 13.2929L6.58579 8L1.29289 2.70711C0.902369 2.31658 0.902369 1.68342 1.29289 1.29289Z" fill="#FEFFFC"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="divider"></div>
+            <div class="buttons-container">
+                <button class="button button-no" onclick="closeModal()">Ні</button>
+                <button class="button button-yes" onclick="confirmDelete()">Так</button>
+            </div>
+        </div>
+        <div class="home-indicator"></div>
+    </div>
+
+    <script>
+        function closeModal() {
+            window.history.back();
+        }
+
+        function confirmDelete() {
+            alert('Акаунт буде видалено');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

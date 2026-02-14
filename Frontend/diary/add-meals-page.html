@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Додати їжу</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+        }
+
+        .header {
+            position: absolute;
+            top: 65px;
+            left: 22px;
+            width: 347px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .back-button {
+            background: rgba(244, 244, 244, 0.1);
+            border: none;
+            border-radius: 50px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(244, 244, 244, 0.15);
+        }
+
+        .title {
+            font-weight: 500;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .content {
+            position: absolute;
+            top: 142px;
+            left: 23px;
+            width: 344px;
+        }
+
+        .search-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .search-box {
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            height: 40px;
+            padding: 8px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .recent-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .recent-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .recent-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+        }
+
+        .clear-button {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+            color: #BBE0FF;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .divider {
+            height: 0.5px;
+            background: #A8A8A8;
+        }
+
+        .food-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+
+        .food-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .food-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0.1px;
+        }
+
+        .food-details {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .add-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .arrow-icon {
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                    <path d="M13 4L7 10L13 16" stroke="#FEFFFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="title">Додати їжу</h1>
+            <div style="width: 42px;"></div>
+        </div>
+
+        <div class="content">
+            <div class="search-section">
+                <input 
+                    type="text" 
+                    class="search-box" 
+                    placeholder="Пошук страв" 
+                    onclick="goToSearch()"
+                    readonly
+                />
+
+                <div class="recent-section">
+                    <div class="recent-header">
+                        <h3 class="recent-title">Нещодавні</h3>
+                        <button class="clear-button" onclick="clearRecent()">Очистити</button>
+                    </div>
+                    <div class="divider"></div>
+
+                    <div class="food-item" onclick="selectFood('Вівсянка на воді')">
+                        <div class="food-info">
+                            <span class="food-name">Вівсянка на воді</span>
+                            <span class="food-details">На 100 гр · 320 ккал</span>
+                        </div>
+                        <svg class="add-icon" viewBox="0 0 24 24" fill="none">
+                            <path d="M13.2 10.8V6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2ZM12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24Z" fill="#BBE0FF"/>
+                        </svg>
+                    </div>
+                    <div class="divider"></div>
+
+                    <div class="food-item" onclick="selectFood('Яєчня з 2-х яєць')">
+                        <div class="food-info">
+                            <span class="food-name">Яєчня з 2-х яєць</span>
+                            <span class="food-details">На 100 гр · 180 ккал</span>
+                        </div>
+                        <svg class="add-icon" viewBox="0 0 24 24" fill="none">
+                            <path d="M13.2 10.8V6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2ZM12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24Z" fill="#BBE0FF"/>
+                        </svg>
+                    </div>
+                    <div class="divider"></div>
+
+                    <div class="food-item" onclick="selectFood('Гречка відварна')">
+                        <div class="food-info">
+                            <span class="food-name">Гречка відварна</span>
+                            <span class="food-details">На 100 гр · 92 ккал</span>
+                        </div>
+                        <svg class="add-icon" viewBox="0 0 24 24" fill="none">
+                            <path d="M13.2 10.8V6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2ZM12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24Z" fill="#BBE0FF"/>
+                        </svg>
+                    </div>
+                    <div class="divider"></div>
+
+                    <div class="food-item" onclick="selectFood('Куряче філе')">
+                        <div class="food-info">
+                            <span class="food-name">Куряче філе</span>
+                            <span class="food-details">На 100 гр · 165 ккал</span>
+                        </div>
+                        <svg class="add-icon" viewBox="0 0 24 24" fill="none">
+                            <path d="M13.2 10.8V6H10.8V10.8H6V13.2H10.8V18H13.2V13.2H18V10.8H13.2ZM12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24Z" fill="#BBE0FF"/>
+                        </svg>
+                    </div>
+                    <div class="divider"></div>
+
+                    <div class="food-item" onclick="goToSearch()">
+                        <div class="food-info">
+                            <span class="food-name">Додати нову страву</span>
+                        </div>
+                        <svg class="arrow-icon" viewBox="0 0 18 18" fill="none">
+                            <path d="M12.6 12L8 7.4L9.4 6L15.4 12L9.4 18L8 16.6L12.6 12Z" fill="#BBE0FF"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function goToSearch() {
+            window.location.href = 'add-meals-page-search.html';
+        }
+
+        function selectFood(foodName) {
+            alert('Обрано: ' + foodName);
+            window.location.href = 'add-info-meal.html';
+        }
+
+        function clearRecent() {
+            if (confirm('Очистити історію останніх страв?')) {
+                alert('Історію очищено');
+            }
+        }
+    </script>
+</body>
+</html>

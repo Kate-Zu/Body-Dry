@@ -1,0 +1,323 @@
+// Body&Dry Backend - Prisma Schema
+// PostgreSQL database schema for nutrition tracking app
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ================== USERS ==================
+
+model User {
+  id               String            @id @default(uuid())
+  email            String            @unique
+  passwordHash     String?
+  emailVerified    Boolean           @default(false)
+  twoFactorEnabled Boolean           @default(false)
+  twoFactorSecret  String?
+  
+  profile          Profile?
+  subscription     Subscription?
+  meals            Meal[]
+  waterLogs        WaterLog[]
+  weightLogs       WeightLog[]
+  dryingPlans      DryingPlan[]
+  customFoods      Food[]            @relation("UserFoods")
+  favorites        FavoriteFood[]
+  fcmTokens        FcmToken[]
+  refreshTokens    RefreshToken[]
+  
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("refresh_tokens")
+}
+
+model Profile {
+  id            String        @id @default(uuid())
+  userId        String        @unique
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  name          String
+  gender        Gender
+  birthDate     DateTime
+  height        Float         // см
+  currentWeight Float         // кг
+  targetWeight  Float?        // кг
+  activityLevel ActivityLevel
+  goal          Goal
+  
+  // Розраховані значення
+  bmr           Float         // Базовий метаболізм
+  tdee          Float         // Денна норма калорій
+  
+  // Кастомні цілі КБЖУ
+  calorieGoal   Int
+  proteinGoal   Int           // грам
+  carbsGoal     Int           // грам
+  fatsGoal      Int           // грам
+  waterGoal     Float         @default(2.7) // літрів
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@map("profiles")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum ActivityLevel {
+  SEDENTARY     // Сидячий спосіб життя
+  LIGHT         // Легка активність (1-2 рази/тиждень)
+  MODERATE      // Помірна активність (3-5 разів/тиждень)
+  ACTIVE        // Висока активність (6-7 разів/тиждень)
+  VERY_ACTIVE   // Дуже висока активність (2 рази/день)
+}
+
+enum Goal {
+  LOSE_WEIGHT   // Схуднення
+  MAINTAIN      // Підтримання ваги
+  GAIN_MUSCLE   // Набір маси
+  DRYING        // Сушка
+}
+
+// ================== FOODS ==================
+
+model Food {
+  id              String         @id @default(uuid())
+  name            String
+  brand           String?
+  barcode         String?        @unique
+  category        String?
+  
+  // На 100г
+  calories        Float
+  protein         Float
+  carbs           Float
+  fats            Float
+  fiber           Float?
+  sugar           Float?
+  
+  servingSize     Float          @default(100)
+  servingUnit     String         @default("г")
+  
+  imageUrl        String?
+  source          String?        // 'openfoodfacts', 'manual', etc.
+  
+  isVerified      Boolean        @default(false)
+  createdByUserId String?
+  createdByUser   User?          @relation("UserFoods", fields: [createdByUserId], references: [id])
+  
+  mealFoods       MealFood[]
+  favorites       FavoriteFood[]
+  
+  createdAt       DateTime       @default(now())
+
+  @@map("foods")
+}
+
+model FavoriteFood {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  foodId    String
+  food      Food     @relation(fields: [foodId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  
+  @@unique([userId, foodId])
+  @@map("favorite_foods")
+}
+
+// ================== DIARY ==================
+
+model Meal {
+  id            String     @id @default(uuid())
+  userId        String
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  date          DateTime   @db.Date
+  type          MealType
+  
+  foods         MealFood[]
+  
+  // Агреговані значення
+  totalCalories Float      @default(0)
+  totalProtein  Float      @default(0)
+  totalCarbs    Float      @default(0)
+  totalFats     Float      @default(0)
+  
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  
+  @@unique([userId, date, type])
+  @@map("meals")
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+}
+
+model MealFood {
+  id            String   @id @default(uuid())
+  mealId        String
+  meal          Meal     @relation(fields: [mealId], references: [id], onDelete: Cascade)
+  foodId        String
+  food          Food     @relation(fields: [foodId], references: [id])
+  
+  servingAmount Float    // кількість порцій
+  
+  // Розраховані значення для цієї порції
+  calories      Float
+  protein       Float
+  carbs         Float
+  fats          Float
+  
+  createdAt     DateTime @default(now())
+
+  @@map("meal_foods")
+}
+
+// ================== WATER ==================
+
+model WaterLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  date      DateTime @db.Date
+  amount    Float    // мл
+  
+  createdAt DateTime @default(now())
+
+  @@unique([userId, date])
+  @@map("water_logs")
+}
+
+// ================== PROGRESS ==================
+
+model WeightLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  date      DateTime @db.Date
+  weight    Float    // кг
+  note      String?
+  
+  createdAt DateTime @default(now())
+  
+  @@unique([userId, date])
+  @@map("weight_logs")
+}
+
+// ================== AI / DRYING PLAN ==================
+
+model DryingPlan {
+  id            String        @id @default(uuid())
+  userId        String
+  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  startDate     DateTime
+  endDate       DateTime
+  durationWeeks Int
+  
+  startWeight   Float
+  targetWeight  Float
+  
+  phases        DryingPhase[]
+  
+  isActive      Boolean       @default(true)
+  
+  createdAt     DateTime      @default(now())
+
+  @@map("drying_plans")
+}
+
+model DryingPhase {
+  id              String     @id @default(uuid())
+  planId          String
+  plan            DryingPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  
+  weekNumber      Int
+  calorieGoal     Int
+  proteinGoal     Int
+  carbsGoal       Int
+  fatsGoal        Int
+  
+  mealPlan        Json?      // JSON з меню на тиждень
+  recommendations String?
+
+  @@map("drying_phases")
+}
+
+// ================== SUBSCRIPTION ==================
+
+model Subscription {
+  id                   String             @id @default(uuid())
+  userId               String             @unique
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  
+  plan                 SubscriptionPlan   @default(FREE)
+  status               SubscriptionStatus @default(ACTIVE)
+  
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  @@map("subscriptions")
+}
+
+enum SubscriptionPlan {
+  FREE
+  BODY_PRO
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  EXPIRED
+}
+
+// ================== NOTIFICATIONS ==================
+
+model FcmToken {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  token     String
+  platform  String   // ios, android
+  
+  createdAt DateTime @default(now())
+  
+  @@unique([userId, token])
+  @@map("fcm_tokens")
+}

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Яка ваша тижнева мета?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 704px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .arrow-back {
+            width: 39px;
+            height: 39px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .arrow-back:hover {
+            opacity: 0.8;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin: 20px 0;
+        }
+
+        .logo-icon {
+            width: 26px;
+            height: 26px;
+        }
+
+        .logo-text {
+            font-size: 25px;
+            font-weight: 500;
+            color: #BBE0FF;
+        }
+
+        .title {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 28px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 20px;
+            color: rgba(254, 255, 252, 0.6);
+            letter-spacing: 0.1px;
+            margin-bottom: 20px;
+        }
+
+        .goals-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .goal-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            min-height: 50px;
+            padding: 10px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 11px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .goal-card:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .goal-card.selected {
+            background-color: rgba(187, 224, 255, 0.1);
+        }
+
+        .goal-content {
+            flex: 1;
+        }
+
+        .goal-title {
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .goal-badge {
+            font-size: 10px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .checkbox circle {
+            transition: all 0.3s;
+        }
+
+        .checkbox path {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .goal-card.selected .checkbox path {
+            opacity: 1;
+        }
+
+        .button {
+            background-color: #FEFFFC;
+            color: #060603;
+            height: 56px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 40px;
+        }
+
+        .button:hover {
+            background-color: #e8e9e6;
+        }
+
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .content-section {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content-section">
+            <div class="arrow-back" onclick="goBack()">
+                <svg fill="none" preserveAspectRatio="none" viewBox="0 0 39 39">
+                    <path d="M15 19.4958C15 19.6426 15.0265 19.7781 15.0796 19.9023C15.1385 20.0265 15.2269 20.1451 15.3448 20.258L22.2318 26.712C22.4322 26.904 22.6739 27 22.9568 27C23.1513 27 23.3251 26.9548 23.4784 26.8645C23.6375 26.7798 23.7642 26.6612 23.8585 26.5088C23.9528 26.3619 24 26.1982 24 26.0175C24 25.7465 23.891 25.5065 23.6729 25.2976L17.4666 19.4958L23.6729 13.694C23.891 13.485 24 13.2479 24 12.9825C24 12.7962 23.9528 12.6296 23.8585 12.4828C23.7642 12.336 23.6375 12.2202 23.4784 12.1355C23.3251 12.0452 23.1513 12 22.9568 12C22.6739 12 22.4322 12.0932 22.2318 12.2795L15.3448 18.7335C15.2269 18.8464 15.1385 18.965 15.0796 19.0892C15.0265 19.2134 15 19.349 15 19.4958Z" fill="#FEFFFC"/>
+                </svg>
+            </div>
+
+            <div class="logo-section">
+                <svg class="logo-icon" fill="none" preserveAspectRatio="none" viewBox="0 0 26 26">
+                    <path d="M13.8695 0H0.0407706V4.53143H13.0608C14.6513 4.53143 15.8643 4.79143 16.7 5.31143C17.5626 5.80667 17.9939 6.56191 17.9939 7.57714C17.9939 8.61714 17.5626 9.39714 16.7 9.91714C15.8643 10.4124 14.6513 10.66 13.0608 10.66H6.06558V15.0429H14.193C15.8913 15.0429 17.1717 15.3152 18.0343 15.86C18.9239 16.38 19.3687 17.1848 19.3687 18.2743C19.3687 19.3886 18.9239 20.2057 18.0343 20.7257C17.1717 21.221 15.8913 21.4686 14.193 21.4686H0.0407706V26H14.6782C18.3982 26 21.2152 25.381 23.1291 24.1429C25.043 22.88 26 21.1343 26 18.9057C26 17.3952 25.6091 16.12 24.8274 15.08C24.0726 14.04 23.0078 13.26 21.633 12.74L20.5008 12.6286C21.7678 12.0838 22.7652 11.3162 23.493 10.3257C24.2209 9.31048 24.5848 8.1219 24.5848 6.76C24.5848 4.72952 23.6817 3.09524 21.8756 1.85714C20.0965 0.619048 17.4278 0 13.8695 0Z" fill="#BBE0FF"/>
+                    <path d="M0 20.8L7.71235e-06 5.69772H4.21737V7.53463V9.64972L3.62298 8.50572C3.78573 8.15066 3.98394 7.82701 4.21737 7.53463C4.63347 7.01343 5.16174 6.59174 5.80242 6.26972C6.80251 5.74972 8.0196 5.48972 9.4537 5.48972V9.23372C9.265 9.21639 9.09517 9.20772 8.94422 9.20772C8.79326 9.19039 8.63287 9.18172 8.46304 9.18172C7.25538 9.18172 6.27416 9.50239 5.51938 10.1437C4.78346 10.7677 4.4155 11.7471 4.4155 13.0817L4.4155 20.8H0Z" fill="#BBE0FF"/>
+                </svg>
+                <span class="logo-text">Body&Dry</span>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h1 class="title">Яка ваша тижнева мета?</h1>
+                <p class="subtitle">Виберіть одну</p>
+            </div>
+
+            <div class="goals-list" id="goalsList">
+                <div class="goal-card selected" data-goal="0.25">
+                    <div class="goal-content">
+                        <div class="goal-title">Втрачати 0,25 кг на тиждень</div>
+                        <div class="goal-badge">Рекомендовано</div>
+                    </div>
+                    <svg class="checkbox" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                        <circle cx="10" cy="10" r="9.5" stroke="#BBE0FF"/>
+                        <path d="M5.5 9.5L9 13L14.5 7.5" stroke="#BBE0FF" stroke-width="1.5"/>
+                    </svg>
+                </div>
+
+                <div class="goal-card" data-goal="0.5">
+                    <div class="goal-content">
+                        <div class="goal-title">Втрачати 0,5 кг на тиждень</div>
+                    </div>
+                    <svg class="checkbox" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                        <circle cx="10" cy="10" r="9.5" stroke="rgba(255, 255, 255, 0.6)"/>
+                        <path d="M5.5 9.5L9 13L14.5 7.5" stroke="#BBE0FF" stroke-width="1.5"/>
+                    </svg>
+                </div>
+
+                <div class="goal-card" data-goal="0.75">
+                    <div class="goal-content">
+                        <div class="goal-title">Втрачати 0,75 кг на тиждень</div>
+                    </div>
+                    <svg class="checkbox" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                        <circle cx="10" cy="10" r="9.5" stroke="rgba(255, 255, 255, 0.6)"/>
+                        <path d="M5.5 9.5L9 13L14.5 7.5" stroke="#BBE0FF" stroke-width="1.5"/>
+                    </svg>
+                </div>
+
+                <div class="goal-card" data-goal="1.0">
+                    <div class="goal-content">
+                        <div class="goal-title">Втрачати 1 кг на тиждень</div>
+                    </div>
+                    <svg class="checkbox" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+                        <circle cx="10" cy="10" r="9.5" stroke="rgba(255, 255, 255, 0.6)"/>
+                        <path d="M5.5 9.5L9 13L14.5 7.5" stroke="#BBE0FF" stroke-width="1.5"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <button class="button" id="nextButton" onclick="goNext()">Далі</button>
+    </div>
+
+    <script>
+        let selectedGoal = '0.25'; // Default recommended option
+
+        // Add click handlers to goal cards (only one can be selected)
+        document.querySelectorAll('.goal-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selection from all cards
+                document.querySelectorAll('.goal-card').forEach(c => {
+                    c.classList.remove('selected');
+                });
+                
+                // Select this card
+                this.classList.add('selected');
+                selectedGoal = this.dataset.goal;
+                
+                updateButtonState();
+            });
+        });
+
+        function updateButtonState() {
+            const button = document.getElementById('nextButton');
+            button.disabled = !selectedGoal;
+        }
+
+        function goBack() {
+            window.location.href = 'start-targets-3.html';
+        }
+
+        function goNext() {
+            if (selectedGoal) {
+                console.log('Selected weekly goal:', selectedGoal, 'kg');
+                alert('Вітаємо! Реєстрацію завершено. Перенаправлення на головну сторінку...');
+                // Navigate to main app or dashboard
+                // window.location.href = 'dashboard.html';
+            }
+        }
+
+        // Initialize button state
+        updateButtonState();
+    </script>
+</body>
+</html>

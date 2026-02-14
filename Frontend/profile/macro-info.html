@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Цілі КБЖУ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+        }
+
+        .header {
+            padding: 65px 22px 20px;
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .back-button {
+            background: rgba(244, 244, 244, 0.1);
+            border: none;
+            border-radius: 50px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .content {
+            padding: 0 23px;
+            margin-top: 70px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .macro-list {
+            display: flex;
+            flex-direction: column;
+            width: 344px;
+        }
+
+        .macro-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 40px;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .macro-label {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .macro-grams {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .macro-percent {
+            font-weight: 600;
+            color: #BBE0FF;
+        }
+
+        .divider {
+            height: 0.5px;
+            background: #A8A8A8;
+            width: 344px;
+        }
+
+        .editable {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <svg width="20" height="20" fill="none">
+                    <path d="M13 4L7 10L13 16" stroke="#FEFFFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="title">Цілі КБЖУ</h1>
+        </div>
+
+        <div class="content">
+            <h2 class="section-title">Цілі за замовчуванням</h2>
+
+            <div class="macro-list">
+                <div class="macro-item editable" onclick="editCalories()">
+                    <span class="macro-label">Ккал</span>
+                    <span style="font-weight: 600;">1790</span>
+                </div>
+                <div class="divider"></div>
+
+                <div class="macro-item editable" onclick="editMacros()">
+                    <div class="macro-label">
+                        <span>Вуглеводи</span>
+                        <span class="macro-grams">93 гр</span>
+                    </div>
+                    <span class="macro-percent">30%</span>
+                </div>
+                <div class="divider"></div>
+
+                <div class="macro-item editable" onclick="editMacros()">
+                    <div class="macro-label">
+                        <span>Білки</span>
+                        <span class="macro-grams">107 гр</span>
+                    </div>
+                    <span class="macro-percent">45%</span>
+                </div>
+                <div class="divider"></div>
+
+                <div class="macro-item editable" onclick="editMacros()">
+                    <div class="macro-label">
+                        <span>Жири</span>
+                        <span class="macro-grams">23 гр</span>
+                    </div>
+                    <span class="macro-percent">25%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function editCalories() {
+            window.location.href = 'macro-calories-edit.html';
+        }
+
+        function editMacros() {
+            window.location.href = 'macro-percent-edit.html';
+        }
+    </script>
+</body>
+</html>

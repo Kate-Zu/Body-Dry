@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Готові рецепти</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            height: 844px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 65px 23px 20px;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .back-button {
+            background: rgba(244, 244, 244, 0.1);
+            border: none;
+            border-radius: 50px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(244, 244, 244, 0.15);
+        }
+
+        .title {
+            font-weight: 500;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .chat-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 23px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .chat-content::-webkit-scrollbar-thumb {
+            background: rgba(187, 224, 255, 0.3);
+            border-radius: 2px;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .avatar.user {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+        }
+
+        .avatar.ai {
+            background: rgba(187, 224, 255, 0.2);
+            border: 1px solid #BBE0FF;
+            color: #BBE0FF;
+        }
+
+        .message-bubble {
+            max-width: 280px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .message.user .message-bubble {
+            background: rgba(187, 224, 255, 0.15);
+            border: 1px solid rgba(187, 224, 255, 0.3);
+        }
+
+        .message.ai .message-bubble {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            margin-left: 42px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .action-btn:hover {
+            opacity: 1;
+        }
+
+        .recipe {
+            margin-top: 12px;
+        }
+
+        .recipe-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: #BBE0FF;
+            margin-bottom: 12px;
+        }
+
+        .recipe-section {
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: rgba(187, 224, 255, 0.9);
+            margin-bottom: 8px;
+        }
+
+        .recipe-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recipe-list li {
+            font-size: 13px;
+            line-height: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 6px;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .recipe-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #BBE0FF;
+            font-weight: bold;
+        }
+
+        .recipe-steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recipe-steps li {
+            font-size: 13px;
+            line-height: 20px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 8px;
+            padding-left: 24px;
+            position: relative;
+            counter-increment: step-counter;
+        }
+
+        .recipe-steps li:before {
+            content: counter(step-counter) ".";
+            position: absolute;
+            left: 0;
+            color: #BBE0FF;
+            font-weight: 600;
+        }
+
+        .nutrition {
+            background: rgba(187, 224, 255, 0.08);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 12px;
+            line-height: 18px;
+            margin-top: 12px;
+        }
+
+        .nutrition-title {
+            font-weight: 600;
+            color: #BBE0FF;
+            margin-bottom: 4px;
+        }
+
+        .bottom-section {
+            padding: 16px 23px;
+            background: rgba(6, 6, 3, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .regenerate-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid rgba(187, 224, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: #BBE0FF;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 12px;
+        }
+
+        .regenerate-btn:hover {
+            background: rgba(187, 224, 255, 0.1);
+            border-color: #BBE0FF;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .message-input {
+            width: 100%;
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            padding: 12px 50px 12px 16px;
+            color: white;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .message-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: #BBE0FF;
+        }
+
+        .send-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #BBE0FF;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .send-btn:hover {
+            background: #A0D0EF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                    <path d="M13 4L7 10L13 16" stroke="#FEFFFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="title">ГОТОВІ РЕЦЕПТИ</h1>
+        </div>
+
+        <div class="chat-content" id="chatContent">
+            <!-- User Message -->
+            <div class="message user">
+                <div class="avatar user">U</div>
+                <div class="message-bubble">Готові рецепти сніданків на сушці</div>
+            </div>
+
+            <!-- AI Response -->
+            <div class="message ai">
+                <div class="avatar ai">B</div>
+                <div class="message-bubble">
+                    Звичайно! Ось детальний рецепт корисного та поживного сніданку для сушки:
+                    
+                    <div class="recipe">
+                        <div class="recipe-title">Вівсяна каша з горіхами та вишнею</div>
+                        
+                        <div class="recipe-section">
+                            <div class="section-title">Інгредієнти:</div>
+                            <ul class="recipe-list">
+                                <li>Вівсяні пластівці – 50 г</li>
+                                <li>Вода або знежирене молоко – 200 мл</li>
+                                <li>Грецькі горіхи (подрібнені) – 15 г</li>
+                                <li>Свіжа або заморожена вишня – 50 г</li>
+                                <li>Мед – 1 чайна ложка (опціонально)</li>
+                                <li>Кориця – за смаком</li>
+                                <li>Сіль – щіпка</li>
+                            </ul>
+                        </div>
+
+                        <div class="recipe-section">
+                            <div class="section-title">Спосіб приготування:</div>
+                            <ol class="recipe-steps">
+                                <li>У каструлі доведіть воду або молоко до кипіння, додайте щіпку солі.</li>
+                                <li>Всипте вівсяні пластівці, зменшіть вогонь до мінімуму.</li>
+                                <li>Варіть кашу 5-7 хвилин, постійно помішуючи, до потрібної консистенції.</li>
+                                <li>Зніміть з вогню, накрийте кришкою та дайте настоятися 2-3 хвилини.</li>
+                                <li>Додайте подрібнені грецькі горіхи та вишню.</li>
+                                <li>Посипте корицею за смаком та за бажанням додайте чайну ложку меду.</li>
+                                <li>Ретельно перемішайте та подавайте гарячою.</li>
+                            </ol>
+                        </div>
+
+                        <div class="nutrition">
+                            <div class="nutrition-title">КБЖУ на 100 г:</div>
+                            <div>Калорійність: 162 ккал</div>
+                            <div>Білки: 5.8 г | Жири: 6.2 г | Вуглеводи: 21.4 г</div>
+                        </div>
+
+                        <div style="margin-top: 16px; font-size: 13px; line-height: 19px; color: rgba(255, 255, 255, 0.75);">
+                            <strong style="color: #BBE0FF;">Переваги:</strong> Ця каша ідеально підходить для сушки, оскільки містить складні вуглеводи, які забезпечують тривале відчуттяситості, а горіхи та вишня додають корисні жири, антиоксиданти та вітаміни. Вівсянка стабілізує рівень цукру в крові та підтримує енергію протягом ранку.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="message-actions">
+                <button class="action-btn" onclick="copyMessage()" title="Копіювати">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M15.75 6.705C15.7422 6.6361 15.7271 6.56822 15.705 6.5025V6.435C15.6689 6.35788 15.6208 6.287 15.5625 6.225V6.225L11.0625 1.725C11.0005 1.66666 10.9296 1.61856 10.8525 1.5825C10.8301 1.57932 10.8074 1.57932 10.785 1.5825C10.7088 1.53881 10.6247 1.51076 10.5375 1.5H7.5C6.90326 1.5 6.33097 1.73705 5.90901 2.15901C5.48705 2.58097 5.25 3.15326 5.25 3.75V4.5H4.5C3.90326 4.5 3.33097 4.73705 2.90901 5.15901C2.48705 5.58097 2.25 6.15326 2.25 6.75V14.25C2.25 14.8467 2.48705 15.419 2.90901 15.841C3.33097 16.2629 3.90326 16.5 4.5 16.5H10.5C11.0967 16.5 11.669 16.2629 12.091 15.841C12.5129 15.419 12.75 14.8467 12.75 14.25V13.5H13.5C14.0967 13.5 14.669 13.2629 15.091 12.841C15.5129 12.419 15.75 11.8467 15.75 11.25V6.75C15.75 6.75 15.75 6.75 15.75 6.705ZM11.25 4.0575L13.1925 6H12C11.8011 6 11.6103 5.92098 11.4697 5.78033C11.329 5.63968 11.25 5.44891 11.25 5.25V4.0575ZM11.25 14.25C11.25 14.4489 11.171 14.6397 11.0303 14.7803C10.8897 14.921 10.6989 15 10.5 15H4.5C4.30109 15 4.11032 14.921 3.96967 14.7803C3.82902 14.6397 3.75 14.4489 3.75 14.25V6.75C3.75 6.55109 3.82902 6.36032 3.96967 6.21967C4.11032 6.07902 4.30109 6 4.5 6H5.25V11.25C5.25 11.8467 5.48705 12.419 5.90901 12.841C6.33097 13.2629 6.90326 13.5 7.5 13.5H11.25V14.25ZM14.25 11.25C14.25 11.4489 14.171 11.6397 14.0303 11.7803C13.8897 11.921 13.6989 12 13.5 12H7.5C7.30109 12 7.11032 11.921 6.96967 11.7803C6.82902 11.6397 6.75 11.4489 6.75 11.25V3.75C6.75 3.55109 6.82902 3.36032 6.96967 3.21967C7.11032 3.07902 7.30109 3 7.5 3H9.75V5.25C9.75 5.84674 9.98705 6.41903 10.409 6.84099C10.831 7.26295 11.4033 7.5 12 7.5H14.25V11.25Z" fill="#BBE0FF"/>
+                    </svg>
+                </button>
+                <button class="action-btn" onclick="shareMessage()" title="Поділитися">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M13.4999 10.5001C13.0568 10.503 12.6198 10.6041 12.2204 10.796C11.821 10.9879 11.4691 11.2659 11.1899 11.6101L7.36493 9.84759C7.54477 9.2969 7.54477 8.70327 7.36493 8.15259L11.1899 6.39009C11.6411 6.93456 12.2702 7.30214 12.966 7.42797C13.6619 7.55379 14.3798 7.42976 14.9931 7.07776C15.6065 6.72577 16.0757 6.16844 16.3181 5.50414C16.5605 4.83984 16.5604 4.11127 16.3179 3.44702C16.0754 2.78276 15.606 2.22552 14.9927 1.87364C14.3793 1.52176 13.6613 1.39786 12.9655 1.5238C12.2697 1.64975 11.6407 2.01745 11.1896 2.56201C10.7385 3.10656 10.4942 3.79297 10.4999 4.50009C10.5022 4.67876 10.5197 4.85691 10.5524 5.03259L6.59243 6.85509C6.17024 6.44227 5.63561 6.16322 5.05553 6.05291C4.47545 5.94259 3.87572 6.00591 3.33147 6.23494C2.78722 6.46396 2.32265 6.8485 1.99598 7.34038C1.66931 7.83226 1.49506 8.40961 1.49506 9.00009C1.49506 9.59056 1.66931 10.1679 1.99598 10.6598C2.32265 11.1517 2.78722 11.5362 3.33147 11.7652C3.87572 11.9943 4.47545 12.0576 5.05553 11.9473C5.63561 11.8369 6.17024 11.5579 6.59243 11.1451L10.5524 12.9676C10.5197 13.1433 10.5022 13.3214 10.4999 13.5001C10.4999 14.0934 10.6759 14.6734 11.0055 15.1668C11.3352 15.6601 11.8037 16.0447 12.3519 16.2717C12.9001 16.4988 13.5033 16.5582 14.0852 16.4424C14.6671 16.3267 15.2017 16.041 15.6212 15.6214C16.0408 15.2018 16.3265 14.6673 16.4423 14.0854C16.558 13.5034 16.4986 12.9002 16.2716 12.352C16.0445 11.8039 15.66 11.3353 15.1666 11.0057C14.6733 10.676 14.0933 10.5001 13.4999 10.5001Z" fill="#BBE0FF"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="bottom-section">
+            <button class="regenerate-btn" onclick="regenerateResponse()">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                    <path d="M7.11401 3.409C7.52822 3.409 7.86401 3.07321 7.86401 2.659C7.86401 2.24479 7.52822 1.909 7.11401 1.909V2.659V3.409ZM5.40001 2.659V1.90899L5.39567 1.90901L5.40001 2.659ZM2.65901 5.431H3.40902L3.409 5.42691L2.65901 5.431ZM1.90901 10.295C1.90901 10.7092 2.24479 11.045 2.65901 11.045C3.07322 11.045 3.40901 10.7092 3.40901 10.295H2.65901H1.90901ZM6.58368 3.18933C6.87657 3.48222 7.35144 3.48222 7.64434 3.18933C7.93723 2.89644 7.93723 2.42156 7.64434 2.12867L7.11401 2.659L6.58368 3.18933ZM5.73534 0.21967C5.44244 -0.0732233 4.96757 -0.0732233 4.67468 0.21967C4.38178 0.512563 4.38178 0.987437 4.67468 1.28033L5.20501 0.75L5.73534 0.21967ZM7.64434 3.18933C7.93723 2.89644 7.93723 2.42156 7.64434 2.12867C7.35144 1.83578 6.87657 1.83578 6.58368 2.12867L7.11401 2.659L7.64434 3.18933ZM4.67468 4.03767C4.38178 4.33056 4.38178 4.80544 4.67468 5.09833C4.96757 5.39122 5.44244 5.39122 5.73534 5.09833L5.20501 4.568L4.67468 4.03767ZM8.38701 12.091C7.97279 12.091 7.63701 12.4268 7.63701 12.841C7.63701 13.2552 7.97279 13.591 8.38701 13.591V12.841V12.091ZM10.1 12.841L10.1 13.591L10.1043 13.591L10.1 12.841ZM12.841 10.069H12.091L12.091 10.0731L12.841 10.069ZM13.591 5.205C13.591 4.79079 13.2552 4.455 12.841 4.455C12.4268 4.455 12.091 4.79079 12.091 5.205H12.841H13.591ZM8.91634 12.3107C8.62344 12.0178 8.14857 12.0178 7.85568 12.3107C7.56278 12.6036 7.56278 13.0784 7.85568 13.3713L8.38601 12.841L8.91634 12.3107ZM9.76468 15.2803C10.0576 15.5732 10.5324 15.5732 10.8253 15.2803C11.1182 14.9874 11.1182 14.5126 10.8253 14.2197L10.295 14.75L9.76468 15.2803Z" fill="currentColor"/>
+                </svg>
+                Regenerate Response
+            </button>
+            <div class="input-container">
+                <input type="text" class="message-input" placeholder="Send a message" />
+                <button class="send-btn">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M16.5 1.5L8.25 9.75M16.5 1.5L11.25 16.5L8.25 9.75M16.5 1.5L1.5 6.75L8.25 9.75" stroke="#060603" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = 'ai-assistant-page.html';
+        }
+
+        function copyMessage() {
+            alert('Рецепт скопійовано!');
+        }
+
+        function shareMessage() {
+            alert('Функція поділитися');
+        }
+
+        function regenerateResponse() {
+            alert('Регенерація відповіді...');
+        }
+
+        // Auto scroll to bottom
+        const chatContent = document.getElementById('chatContent');
+        chatContent.scrollTop = chatContent.scrollHeight;
+    </script>
+</body>
+</html>

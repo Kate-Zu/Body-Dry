@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Редагування макронутрієнтів</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: rgba(6, 6, 3, 0.8);
+            backdrop-filter: blur(10px);
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-container {
+            max-width: 390px;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 6px;
+            box-shadow: 0px -2px 4px 0px rgba(0,0,0,0.25);
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 10px;
+            width: 378px;
+        }
+
+        .close-button, .confirm-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .divider-header {
+            width: 378px;
+            height: 0.5px;
+            background: rgba(168, 168, 168, 0.6);
+        }
+
+        .macro-info {
+            display: flex;
+            justify-content: space-between;
+            width: 346px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .macro-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .macro-title {
+            color: #BBE0FF;
+        }
+
+        .macro-grams {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 378px;
+        }
+
+        .option-row {
+            height: 27px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-row:hover:not(.selected) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .option-row.selected {
+            background: rgba(187, 224, 255, 0.3);
+            box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 1px 3px 0px rgba(0,0,0,0.15);
+        }
+
+        .option-value {
+            font-size: 10px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .option-row:not(.selected):nth-child(2) .option-value,
+        .option-row:not(.selected):nth-child(4) .option-value {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .option-row.selected .option-value {
+            font-size: 16px;
+            color: #FEFFFC;
+        }
+
+        .total-info {
+            width: 330px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .total-label {
+            font-weight: 500;
+        }
+
+        .total-value {
+            font-weight: 600;
+            color: #BBE0FF;
+        }
+
+        .total-note {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .home-indicator {
+            height: 21px;
+            width: 390px;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-button" onclick="closeModal()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M1.29289 1.29289C1.68342 0.902369 2.31658 0.902369 2.70711 1.29289L8 6.58579L13.2929 1.29289C13.6834 0.902369 14.3166 0.902369 14.7071 1.29289C15.0976 1.68342 15.0976 2.31658 14.7071 2.70711L9.41421 8L14.7071 13.2929C15.0976 13.6834 15.0976 14.3166 14.7071 14.7071C14.3166 15.0976 13.6834 15.0976 13.2929 14.7071L8 9.41421L2.70711 14.7071C2.31658 15.0976 1.68342 15.0976 1.29289 14.7071C0.902369 14.3166 0.902369 13.6834 1.29289 13.2929L6.58579 8L1.29289 2.70711C0.902369 2.31658 0.902369 1.68342 1.29289 1.29289Z" fill="#FEFFFC"/>
+                    </svg>
+                </button>
+                <button class="confirm-button" onclick="confirmSelection()">
+                    <svg width="24" height="17" viewBox="0 0 26 17" fill="none">
+                        <path d="M1 6.45455L10.3333 16L25 1" stroke="#BBE0FF" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="divider-header"></div>
+
+            <div class="macro-info">
+                <div class="macro-column">
+                    <div class="macro-title">Вуглев.</div>
+                    <div class="macro-grams">93 гр</div>
+                </div>
+                <div class="macro-column">
+                    <div class="macro-title">Білки</div>
+                    <div class="macro-grams">107 гр</div>
+                </div>
+                <div class="macro-column">
+                    <div class="macro-title">Жири</div>
+                    <div class="macro-grams">23 гр</div>
+                </div>
+            </div>
+
+            <div class="options-list">
+                <div class="option-row" onclick="selectOption(this, 0)">
+                    <span class="option-value">40%</span>
+                    <span class="option-value">55%</span>
+                    <span class="option-value">35%</span>
+                </div>
+
+                <div class="option-row" onclick="selectOption(this, 1)">
+                    <span class="option-value">35%</span>
+                    <span class="option-value">50%</span>
+                    <span class="option-value">30%</span>
+                </div>
+
+                <div class="option-row selected" onclick="selectOption(this, 2)">
+                    <span class="option-value">30%</span>
+                    <span class="option-value">45%</span>
+                    <span class="option-value">25%</span>
+                </div>
+
+                <div class="option-row" onclick="selectOption(this, 3)">
+                    <span class="option-value">25%</span>
+                    <span class="option-value">40%</span>
+                    <span class="option-value">20%</span>
+                </div>
+
+                <div class="option-row" onclick="selectOption(this, 4)">
+                    <span class="option-value">20%</span>
+                    <span class="option-value">35%</span>
+                    <span class="option-value">15%</span>
+                </div>
+            </div>
+
+            <div class="total-info">
+                <div class="total-row">
+                    <span class="total-label">Усього %</span>
+                    <span class="total-value">100%</span>
+                </div>
+                <div class="total-note">* Сума макроелементів повинна становити 100%</div>
+            </div>
+        </div>
+
+        <div class="home-indicator"></div>
+    </div>
+
+    <script>
+        let selectedIndex = 2; // Default selected
+
+        function selectOption(element, index) {
+            // Remove selected class from all
+            document.querySelectorAll('.option-row').forEach(row => {
+                row.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked
+            element.classList.add('selected');
+            selectedIndex = index;
+        }
+
+        function closeModal() {
+            window.history.back();
+        }
+
+        function confirmSelection() {
+            alert('Зміни збережено!');
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

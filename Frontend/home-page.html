@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Головна</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Montserrat+Alternates:wght@500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            position: relative;
+            padding-bottom: 100px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: white;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 100px;
+            background: linear-gradient(135deg, #BBE0FF 0%, #7BA7FF 100%);
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 28px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .card {
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 16px 12px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 28px;
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            font-size: 10px;
+            font-weight: 400;
+            line-height: 20px;
+            color: #FEFFFC;
+            letter-spacing: 0.1px;
+        }
+
+        .calories-content {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .pie-chart {
+            position: relative;
+            width: 125px;
+            height: 125px;
+            flex-shrink: 0;
+        }
+
+        .pie-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .pie-number {
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 28px;
+        }
+
+        .pie-label {
+            font-size: 10px;
+            font-weight: 400;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+        }
+
+        .calories-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .stat-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .stat-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 16px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: 0.4px;
+        }
+
+        .stat-value {
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .macros-content {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .macro-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .macro-chart {
+            position: relative;
+            width: 87px;
+            height: 87px;
+        }
+
+        .macro-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .macro-number {
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 28px;
+        }
+
+        .macro-remaining {
+            font-size: 8px;
+            font-weight: 400;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+        }
+
+        .macro-label {
+            font-size: 8px;
+            font-weight: 400;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+            margin-top: 5px;
+        }
+
+        .water-content {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .water-ring {
+            position: relative;
+            width: 117px;
+            height: 117px;
+            flex-shrink: 0;
+        }
+
+        .water-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .water-amount {
+            font-weight: 590;
+            font-size: 14.75px;
+            line-height: normal;
+        }
+
+        .water-goal {
+            font-size: 7.375px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .water-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .water-title {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+        }
+
+        .button {
+            background: #FEFFFC;
+            color: #060603;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button:hover {
+            background: #e8e9e6;
+        }
+
+        .weight-title {
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 28px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .weight-graph {
+            position: relative;
+            width: 335px;
+            height: 181px;
+            margin: 0 auto 10px;
+        }
+
+        .weight-note {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .button-full {
+            width: 100%;
+            height: 40px;
+            background: #FEFFFC;
+            color: #060603;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button-full:hover {
+            background: #e8e9e6;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 390px;
+            max-width: 100%;
+            height: 100px;
+            background: #060603;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .nav-icon:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="header-title">ГОЛОВНА</h1>
+            <div class="avatar"></div>
+        </div>
+
+        <div class="content">
+            <h2 class="section-title">Сьогодні</h2>
+
+            <!-- Calories Card -->
+            <div class="card">
+                <h3 class="card-title">Калорії</h3>
+                <p class="card-subtitle">Залишилось = Ціль - Їжа</p>
+                
+                <div class="calories-content">
+                    <div class="pie-chart">
+                        <svg width="125" height="126" viewBox="0 0 125 126" fill="none">
+                            <circle cx="62.5" cy="63" r="58" fill="white" opacity="0.1"/>
+                            <path d="M62.036 5.27097C62.036 2.77097 64.036 0.770971 66.536 0.940971C74.796 1.55097 82.712 4.60097 89.253 9.73097C96.612 15.5023 101.803 23.5703 103.991 32.635C106.178 41.6997 105.234 51.2331 101.311 59.6991C97.3884 68.1651 90.715 75.0703 82.3662 79.3025C74.0174 83.5347 64.4795 84.8472 55.2895 83.0285C46.0995 81.2098 37.7925 76.366 31.707 69.2773C25.6216 62.1886 22.112 53.2681 21.744 44.0527C21.417 35.7743 23.588 27.6129 27.941 20.6052C28.848 19.1452 30.804 18.8427 32.198 19.8496C33.6006 20.8636 33.898 22.8186 33.0055 24.3016C29.4783 30.1623 27.7254 36.9379 27.9967 43.8085C28.3094 51.7262 31.2923 59.3087 36.4649 65.3341C41.6375 71.3596 48.6984 75.477 56.5099 77.0228C64.3215 78.5687 72.4287 77.453 79.5251 73.8556C86.6215 70.2582 92.294 64.3886 95.6284 57.1926C98.9629 50.0965 99.7651 41.9932 98.0058 34.2881C96.2465 26.5831 91.834 19.7253 85.5793 14.8198C80.1423 10.5554 73.5884 7.98207 66.7363 7.38245C64.0237 7.23245 62.036 5.76097 62.036 3.27097V5.27097Z" fill="#BBE0FF"/>
+                            <path d="M81.824 113.067C82.678 115.294 81.569 117.808 79.285 118.493C73.057 120.36 66.548 121.162 60.033 120.855C52.077 120.479 44.286 118.457 37.152 114.916C30.018 111.376 23.697 106.393 18.587 100.285C14.402 95.2817 11.105 89.6123 8.826 83.523C7.99 81.2895 9.322 78.8859 11.612 78.2198C13.902 77.5537 16.28 78.8791 17.145 81.1014C19.071 86.0479 21.793 90.6573 25.211 94.7436C29.554 99.9362 34.928 104.171 40.992 107.181C47.056 110.19 53.678 111.909 60.44 112.228C65.762 112.479 71.078 111.86 76.183 110.402C78.476 109.748 80.97 110.84 81.824 113.067Z" fill="#FFAD8F"/>
+                        </svg>
+                        <div class="pie-center">
+                            <div class="pie-number">1,550</div>
+                            <div class="pie-label">Залишилось</div>
+                        </div>
+                    </div>
+
+                    <div class="calories-stats">
+                        <div class="stat-item">
+                            <svg class="stat-icon" fill="none" viewBox="0 0 20 20">
+                                <path d="M4.16667 18.3333V11.6667M4.16667 11.6667V3.33333M4.16667 11.6667L6.225 11.255C7.60069 10.9809 9.02636 11.1117 10.3292 11.6317C11.7405 12.1959 13.2938 12.3011 14.7683 11.9325L14.9467 11.8883C15.1999 11.8251 15.4247 11.6791 15.5853 11.4734C15.746 11.2678 15.8333 11.0143 15.8333 10.7533V4.61417C15.8333 4.46231 15.7986 4.31245 15.732 4.17597C15.6654 4.03949 15.5686 3.91998 15.449 3.82649C15.3293 3.733 15.1899 3.66799 15.0413 3.6364C14.8928 3.60481 14.739 3.60747 14.5917 3.64417C13.2322 3.98381 11.8002 3.88642 10.4992 3.36583L10.3292 3.29833C9.02661 2.77855 7.60125 2.64771 6.22583 2.92167L4.16667 3.33333M4.16667 3.33333V1.66667" stroke="#FEFFFC" stroke-width="1.25" stroke-linecap="round"/>
+                            </svg>
+                            <div class="stat-text">
+                                <div class="stat-label">Базова ціль</div>
+                                <div class="stat-value">1,550</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-item">
+                            <svg class="stat-icon" fill="none" viewBox="0 0 20 20">
+                                <path d="M5 16.6667H7.5M7.5 16.6667H10M7.5 16.6667V12.5M7.5 12.5C7.5 12.5 4.58333 10.94 3.75 9.16667C2.85 7.2525 3.75 3.75 3.75 3.75H11.25C11.25 3.75 12.15 7.2525 11.25 9.16667C10.4167 10.94 7.5 12.5 7.5 12.5ZM14.1667 16.6667V10C14.1667 10 16.25 9.16667 16.25 7.5V3.75M14.1667 7.08333V3.75" stroke="#BBE0FF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <div class="stat-text">
+                                <div class="stat-label">Їжа</div>
+                                <div class="stat-value">989</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Macros Card -->
+            <div class="card">
+                <h3 class="card-title">Макро</h3>
+                
+                <div class="macros-content">
+                    <div class="macro-item">
+                        <div class="macro-chart">
+                            <svg width="87" height="87" viewBox="0 0 87 87" fill="none">
+                                <circle cx="43.5" cy="43.5" r="41.5" fill="white" opacity="0.1"/>
+                                <path d="M43.715 3.005C43.715 1.286 45.111 -0.119 46.825 0.008C54.311 0.565 61.529 3.123 67.702 7.44C74.726 12.351 80.056 19.3 82.965 27.337C85.873 35.374 86.218 44.107 83.952 52.347C81.687 60.586 76.921 67.929 70.306 73.373C63.69 78.818 55.548 82.1 47.988 82.77C40.429 83.44 32.871 81.466 26.481 77.118C20.09 72.77 15.229 66.259 12.696 58.474C10.594 51.64 9.42 44.116 10.267 36.704C10.463 34.99 12.111 33.879 13.806 34.201C15.506 34.523 16.606 36.164 16.433 37.885C15.816 44.031 16.829 50.25 19.399 55.912C22.402 62.53 27.384 68.064 33.666 71.76C39.947 75.456 47.222 77.133 54.497 76.564C61.773 75.994 68.694 73.205 74.317 68.577C79.94 63.949 83.991 57.707 85.917 50.704C87.843 43.701 87.549 36.277 85.077 29.445C82.605 22.614 78.075 16.708 72.104 12.533C66.985 8.954 61.021 6.796 54.824 6.254C53.112 6.104 41.715 4.724 41.715 3.005Z" fill="#BBE0FF"/>
+                            </svg>
+                            <div class="macro-center">
+                                <div class="macro-number">15 г</div>
+                                <div class="macro-remaining">залишилось</div>
+                            </div>
+                        </div>
+                        <div class="macro-label">Білки</div>
+                    </div>
+
+                    <div class="macro-item">
+                        <div class="macro-chart">
+                            <svg width="87" height="87" viewBox="0 0 87 87" fill="none">
+                                <circle cx="43.5" cy="43.5" r="41.5" fill="white" opacity="0.1"/>
+                                <path d="M43.715 3.005C43.715 1.286 45.111 -0.119 46.825 0.008C56.639 0.663 66.046 4.091 73.807 9.836C82.36 16.254 87.363 25.143 88.917 34.903C90.471 44.663 88.473 54.655 83.284 63.08C78.094 71.506 70.053 77.813 60.606 80.866C51.16 83.92 40.928 83.52 25.752 79.738C16.575 75.957 9.056 69.042 4.547 60.237C0.037 51.432 -1.166 41.315 1.153 31.706C3.229 23.104 8.006 15.413 14.751 9.729C16.063 8.623 18.014 8.939 19.026 10.325C20.045 11.72 19.724 13.668 18.419 14.8C12.885 19.599 8.963 26.009 7.237 33.16C5.267 41.327 6.289 49.927 10.122 57.411C13.955 64.895 20.346 70.773 28.146 73.987C35.946 77.201 44.643 77.541 52.673 74.945C60.702 72.35 67.537 66.989 71.948 59.827C76.36 52.666 78.058 44.173 76.737 35.877C75.416 27.58 71.164 20.025 64.744 14.57C59.116 9.788 52.146 6.895 44.824 6.254C43.112 6.104 41.715 4.724 41.715 3.005Z" fill="#BBE0FF"/>
+                            </svg>
+                            <div class="macro-center">
+                                <div class="macro-number">23 г</div>
+                                <div class="macro-remaining">залишилось</div>
+                            </div>
+                        </div>
+                        <div class="macro-label">Жири</div>
+                    </div>
+
+                    <div class="macro-item">
+                        <div class="macro-chart">
+                            <svg width="87" height="87" viewBox="0 0 87 87" fill="none">
+                                <circle cx="43.5" cy="43.5" r="41.5" fill="white" opacity="0.1"/>
+                                <path d="M43.715 3.005C43.715 1.286 45.111 -0.119 46.825 0.008C56.639 0.663 66.046 4.091 73.807 9.836C82.36 16.254 87.363 25.143 88.917 34.903C90.471 44.663 88.473 54.655 83.284 63.08C78.094 71.506 70.053 77.813 60.606 80.866C51.16 83.92 40.928 83.52 31.752 79.738C22.575 75.957 15.056 69.042 10.547 60.237C6.037 51.432 4.834 41.315 7.153 31.706C9.229 23.104 14.006 15.413 20.751 9.729C22.063 8.623 24.014 8.939 25.026 10.325C26.045 11.72 25.724 13.668 24.419 14.8C18.885 19.599 14.963 26.009 13.237 33.16C11.267 41.327 12.289 49.927 16.122 57.411C19.955 64.895 26.346 70.773 34.146 73.987C41.946 77.201 50.643 77.541 58.673 74.945C66.702 72.35 73.537 66.989 77.948 59.827C82.36 52.666 84.058 44.173 82.737 35.877C81.416 27.58 77.164 20.025 70.744 14.57C65.116 9.788 58.146 6.895 50.824 6.254C49.112 6.104 47.715 4.724 47.715 3.005Z" fill="#BBE0FF"/>
+                            </svg>
+                            <div class="macro-center">
+                                <div class="macro-number">10 г</div>
+                                <div class="macro-remaining">залишилось</div>
+                            </div>
+                        </div>
+                        <div class="macro-label">Вуглеводи</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Water Card -->
+            <div class="card">
+                <div class="water-content">
+                    <div class="water-ring">
+                        <svg width="117" height="117" viewBox="0 0 117 117" fill="none">
+                            <circle cx="58.5" cy="58.5" r="58" fill="#BBE0FF" opacity="0.1"/>
+                            <path d="M47.709 18.719C51.183 12.66 49.098 4.781 42.435 2.688C36.696 0.886 30.689 -0.029 24.623 0.001C18.558 0.03 12.56 1.002 6.839 2.86C0.196 5.017 -1.813 12.915 1.719 18.941C5.251 24.966 13.059 26.701 19.966 25.663C21.543 25.425 23.14 25.301 24.745 25.294C26.351 25.286 27.949 25.395 29.528 25.617C36.444 26.589 44.236 24.779 47.709 18.719Z" fill="#BBE0FF"/>
+                        </svg>
+                        <div class="water-center">
+                            <div class="water-amount">0.5 L</div>
+                            <div class="water-goal">2 Liter</div>
+                        </div>
+                    </div>
+
+                    <div class="water-info">
+                        <div class="water-title">Вода</div>
+                        <button class="button" onclick="goToWaterTracker()">Додати воду</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weight Card -->
+            <div class="card">
+                <h3 class="weight-title">Вага</h3>
+                
+                <div class="weight-graph">
+                    <svg width="335" height="181" viewBox="0 0 335 181" fill="none">
+                        <defs>
+                            <linearGradient id="gradient" x1="168" y1="61" x2="168" y2="218">
+                                <stop offset="0%" stop-color="#0066FF" stop-opacity="0.08"/>
+                                <stop offset="100%" stop-color="#0066FF" stop-opacity="0"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Grid lines -->
+                        <line x1="0.75" y1="0" x2="0.75" y2="166" stroke="#BBE0FF" stroke-opacity="0.1" stroke-width="1.5"/>
+                        <line x1="60.75" y1="0" x2="60.75" y2="106" stroke="#BBE0FF" stroke-opacity="0.1" stroke-width="1.5"/>
+                        <line x1="120.75" y1="0" x2="120.75" y2="149" stroke="#BBE0FF" stroke-opacity="0.1" stroke-width="1.5"/>
+                        <line x1="180.75" y1="0" x2="180.75" y2="58" stroke="#BBE0FF" stroke-opacity="0.1" stroke-width="1.5"/>
+                        <line x1="240.75" y1="0" x2="240.75" y2="112" stroke="#BBE0FF" stroke-opacity="0.1" stroke-width="1.5"/>
+                        <line x1="300.75" y1="0" x2="300.75" y2="22" stroke="#BBE0FF" stroke-opacity="0.1" stroke-width="1.5"/>
+                        
+                        <!-- Graph line -->
+                        <path d="M2.5 137.95C10.724 144.784 26.112 158.216 46.678 118.45C65.038 82.951 74.791 68.451 97.741 96.45C111.201 112.872 120.31 142.451 152.82 120.95C178.524 103.951 168.311 27.451 210.767 46.45C227.979 54.676 224.537 92.951 255.519 92.951C269.514 92.951 279.157 89.151 291.091 47.951C306.008 -3.549 315.188 -3.549 333.547 10.451" stroke="#BBE0FF" stroke-width="5" stroke-linecap="round"/>
+                        
+                        <!-- Filled area under the curve -->
+                        <path d="M45.229 118.433C24.418 158.209 8.845 144.773 0.524 137.938V183.451H335.524V10.404C316.945 -3.599 307.655 -3.599 292.56 47.914C280.484 89.125 270.726 92.927 256.564 92.927C225.212 92.927 228.695 54.642 211.278 46.414C168.314 27.409 173.192 104.93 152.638 120.934C122.447 144.44 110.522 112.853 96.902 96.427C73.678 68.42 63.808 82.924 45.229 118.433Z" fill="url(#gradient)"/>
+                        
+                        <!-- Dot on the line -->
+                        <circle cx="196.5" cy="43.5" r="11" fill="white"/>
+                        <circle cx="196.5" cy="43.5" r="6" fill="#BBE0FF"/>
+                    </svg>
+                </div>
+
+                <p class="weight-note">Маєте ціль щодо ваги? Перегляньте свій останній прогрес тут</p>
+                <button class="button-full" onclick="updateWeight()">Оновіть свою вагу</button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <svg class="nav-icon" fill="none" viewBox="0 0 40 40" onclick="navigate('home')">
+                <path d="M33.3333 31.6667V17.5C33.3333 17.2413 33.2731 16.9861 33.1574 16.7546C33.0417 16.5232 32.8737 16.3219 32.6667 16.1667L21 7.41667C20.7115 7.2003 20.3606 7.08333 20 7.08333C19.6394 7.08333 19.2885 7.2003 19 7.41667L7.33333 16.1667C7.12634 16.3219 6.95833 16.5232 6.84262 16.7546C6.72691 16.9861 6.66667 17.2413 6.66667 17.5V31.6667C6.66667 32.1087 6.84226 32.5326 7.15482 32.8452C7.46738 33.1577 7.89131 33.3333 8.33333 33.3333H15C15.442 33.3333 15.866 33.1577 16.1785 32.8452C16.4911 32.5326 16.6667 32.1087 16.6667 31.6667V26.6667C16.6667 26.2246 16.8423 25.8007 17.1548 25.4882C17.4674 25.1756 17.8913 25 18.3333 25H21.6667C22.1087 25 22.5326 25.1756 22.8452 25.4882C23.1577 25.8007 23.3333 26.2246 23.3333 26.6667V31.6667C23.3333 32.1087 23.5089 32.5326 23.8215 32.8452C24.134 33.1577 24.558 33.3333 25 33.3333H31.6667C32.1087 33.3333 32.5326 33.1577 32.8452 32.8452C33.1577 32.5326 33.3333 32.1087 33.3333 31.6667Z" stroke="#BBE0FF" stroke-width="3.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <svg class="nav-icon" fill="none" viewBox="0 0 40 40" onclick="navigate('diary')">
+                <path d="M28.3333 3.33333H8.33333C7.89131 3.33333 7.46738 3.50893 7.15482 3.82149C6.84226 4.13405 6.66667 4.55797 6.66667 5V31.6667C6.66667 32.1087 6.84226 32.5326 7.15482 32.8452C7.46738 33.1577 7.89131 33.3333 8.33333 33.3333H10V35C10 35.442 10.1756 35.866 10.4882 36.1785C10.8007 36.4911 11.2246 36.6667 11.6667 36.6667C12.1087 36.6667 12.5326 36.4911 12.8452 36.1785C13.1577 35.866 13.3333 35.442 13.3333 35V33.3333H28.3333C29.6594 33.3333 30.9312 32.8065 31.8689 31.8689C32.8065 30.9312 33.3333 29.6594 33.3333 28.3333V8.33333C33.3333 7.00725 32.8065 5.73548 31.8689 4.7978C30.9312 3.86012 29.6594 3.33333 28.3333 3.33333ZM23.3333 30H10V6.66667H23.3333V30ZM30 28.3333C30 28.7754 29.8244 29.1993 29.5118 29.5118C29.1993 29.8244 28.7754 30 28.3333 30H26.6667V6.66667H28.3333C28.7754 6.66667 29.1993 6.84226 29.5118 7.15482C29.8244 7.46738 30 7.89131 30 8.33333V28.3333Z" fill="#BBE0FF" fill-opacity="0.3"/>
+            </svg>
+
+            <svg class="nav-icon" fill="none" viewBox="0 0 40 40" onclick="navigate('stats')">
+                <path d="M17.25 35C16.6977 35 16.25 34.5523 16.25 34V6C16.25 5.44772 16.6977 5 17.25 5H22.75C23.3023 5 23.75 5.44772 23.75 6V34C23.75 34.5523 23.3023 35 22.75 35H17.25ZM6 35C5.44772 35 5 34.5523 5 34V18.5C5 17.9477 5.44772 17.5 6 17.5H11.5C12.0523 17.5 12.5 17.9477 12.5 18.5V34C12.5 34.5523 12.0523 35 11.5 35H6ZM28.5 35C27.9477 35 27.5 34.5523 27.5 34V13.5C27.5 12.9477 27.9477 12.5 28.5 12.5H34C34.5523 12.5 35 12.9477 35 13.5V34C35 34.5523 34.5523 35 34 35H28.5Z" stroke="#BBE0FF" stroke-opacity="0.3" stroke-width="2.5"/>
+            </svg>
+
+            <svg class="nav-icon" fill="none" viewBox="0 0 40 40" onclick="navigate('ai')">
+                <path d="M11.687 5.747C12.684 2.83 16.714 2.742 17.896 5.482L17.996 5.748L19.341 9.682C19.649 10.584 20.147 11.409 20.801 12.102C21.456 12.796 22.251 13.34 23.134 13.7L23.496 13.835L27.429 15.178C30.346 16.175 30.434 20.205 27.696 21.387L27.429 21.487L23.496 22.832C22.593 23.14 21.768 23.638 21.074 24.292C20.38 24.947 19.836 25.742 19.476 26.625L19.341 26.985L17.997 30.92C17.001 33.837 12.971 33.925 11.791 31.187L11.687 30.92L10.344 26.987C10.036 26.084 9.538 25.259 8.884 24.565C8.229 23.872 7.434 23.327 6.551 22.967L6.191 22.832L2.257 21.488C-0.661 20.492 -0.749 16.462 1.991 15.282L2.257 15.178L6.191 13.835C7.093 13.527 7.918 13.029 8.611 12.374C9.305 11.72 9.849 10.925 10.209 10.042L10.344 9.682L11.687 5.747ZM14.842 6.823L13.499 10.757C13.03 12.132 12.266 13.389 11.262 14.439C10.257 15.49 9.036 16.308 7.682 16.838L7.266 16.99L3.332 18.333L7.266 19.677C8.641 20.146 9.898 20.91 10.948 21.914C11.998 22.919 12.817 24.14 13.347 25.493L13.499 25.91L14.842 29.843L16.186 25.91C16.655 24.535 17.419 23.278 18.423 22.228C19.428 21.177 20.649 20.359 22.002 19.828L22.419 19.678L26.352 18.333L22.419 16.99C21.044 16.521 19.787 15.757 18.737 14.753C17.686 13.748 16.867 12.527 16.337 11.173L16.187 10.757L14.842 6.823ZM28.176 0C28.487 0 28.793 0.087 29.058 0.252C29.322 0.417 29.535 0.653 29.672 0.933L29.752 1.128L30.336 2.838L32.047 3.422C32.36 3.528 32.634 3.724 32.834 3.986C33.035 4.248 33.153 4.564 33.174 4.893C33.196 5.223 33.118 5.551 32.953 5.836C32.787 6.122 32.54 6.352 32.244 6.497L32.047 6.577L30.337 7.16L29.754 8.872C29.648 9.184 29.451 9.458 29.189 9.658C28.927 9.859 28.611 9.977 28.282 9.998C27.952 10.019 27.624 9.941 27.339 9.776C27.054 9.61 26.824 9.363 26.679 9.067L26.599 8.872L26.016 7.162L24.304 6.578C23.992 6.472 23.718 6.276 23.517 6.014C23.316 5.752 23.198 5.436 23.177 5.107C23.156 4.777 23.233 4.449 23.399 4.164C23.564 3.878 23.811 3.648 24.107 3.503L24.304 3.423L26.014 2.84L26.597 1.128C26.71 0.799 26.922 0.513 27.205 0.311C27.488 0.108 27.828 -0.0002 28.176 0Z" fill="#BBE0FF" fill-opacity="0.3"/>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        function goToWaterTracker() {
+            window.location.href = 'water-tracker.html';
+        }
+
+        function updateWeight() {
+            alert('Функція оновлення ваги');
+        }
+
+        function navigate(section) {
+            console.log('Navigate to:', section);
+            if (section === 'home') {
+                // Already on home
+            } else if (section === 'diary') {
+                alert('Перехід до щоденника');
+            } else if (section === 'stats') {
+                alert('Перехід до статистики');
+            } else if (section === 'ai') {
+                alert('Перехід до AI-помічника');
+            }
+        }
+    </script>
+</body>
+</html>

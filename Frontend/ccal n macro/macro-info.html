@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Макро</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+        }
+
+        .header {
+            position: absolute;
+            top: 65px;
+            left: 22px;
+            width: 342px;
+            display: flex;
+            align-items: center;
+            gap: 110px;
+        }
+
+        .back-button {
+            background: rgba(244, 244, 244, 0.1);
+            border: none;
+            border-radius: 50px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(244, 244, 244, 0.15);
+        }
+
+        .title {
+            font-weight: 500;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .progress-body {
+            position: absolute;
+            top: 142px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .tabs {
+            width: 345px;
+            position: relative;
+            height: 57px;
+        }
+
+        .tab-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            cursor: pointer;
+        }
+
+        .tab-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .tab.active .tab-text {
+            color: #BBE0FF;
+        }
+
+        .tab-underline {
+            height: 2px;
+            background: #BBE0FF;
+            border-radius: 10px;
+            width: 62px;
+            margin-top: 0;
+        }
+
+        .tab-separator {
+            height: 0.5px;
+            background: rgba(255, 255, 255, 0.6);
+            width: 345px;
+            position: absolute;
+            top: 32px;
+        }
+
+        .day-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 345px;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .arrow {
+            cursor: pointer;
+            width: 7.67px;
+            height: 13.31px;
+        }
+
+        .day-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            color: white;
+        }
+
+        .chart-card {
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            width: 344px;
+            padding: 10px 8px 24px;
+        }
+
+        .pie-chart {
+            width: 204px;
+            height: 190px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px 30px;
+            justify-content: center;
+            width: 266px;
+            margin: 8px auto 0;
+        }
+
+        .legend-item {
+            display: flex;
+            gap: 4px;
+            align-items: flex-start;
+            padding: 4px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .legend-text {
+            display: flex;
+            flex-direction: column;
+            font-weight: 500;
+            line-height: 16px;
+        }
+
+        .legend-label {
+            font-size: 12px;
+            letter-spacing: 0.4px;
+            color: #FEFFFC;
+        }
+
+        .legend-value {
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .totals {
+            display: flex;
+            flex-direction: column;
+            width: 344px;
+        }
+
+        .total-section {
+            margin-bottom: 0;
+        }
+
+        .total-header {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: #FEFFFC;
+            margin: 0;
+        }
+
+        .total-divider {
+            height: 0.5px;
+            background: #A8A8A8;
+            margin: 0 0 8px 0;
+        }
+
+        .total-cards {
+            display: flex;
+            gap: 7px;
+            margin-bottom: 20px;
+        }
+
+        .total-card {
+            background: rgba(187, 224, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .card-label {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+        }
+
+        .card-values {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-target {
+            color: #FEFFFC;
+        }
+
+        .card-remaining {
+            color: #484646;
+        }
+
+        .food-list {
+            width: 344px;
+        }
+
+        .food-title {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            margin-bottom: 0;
+        }
+
+        .food-divider {
+            height: 0.5px;
+            background: #A8A8A8;
+            margin: 0;
+        }
+
+        .food-row {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+            font-size: 12px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .food-name {
+            font-weight: 400;
+            color: #FEFFFC;
+        }
+
+        .food-protein {
+            font-weight: 400;
+            color: #FEFFFC;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <svg width="20" height="20" fill="none" viewBox="0 0 20 20">
+                    <path d="M13 4L7 10L13 16" stroke="#FEFFFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="title">Макро</h1>
+        </div>
+
+        <div class="progress-body">
+            <div class="tabs">
+                <div class="tab-row">
+                    <div class="tab" onclick="goToCalories()">
+                        <span class="tab-text">Калорії</span>
+                    </div>
+                    <div class="tab active">
+                        <span class="tab-text">Макро</span>
+                        <div class="tab-underline"></div>
+                    </div>
+                </div>
+                <div class="tab-separator"></div>
+                <div class="day-selector">
+                    <svg class="arrow" fill="none" viewBox="0 0 7.669 13.314">
+                        <path d="M0.292787 7.37629C0.105316 7.18876 0 6.93445 0 6.66929C0 6.40412 0.105316 6.14982 0.292787 5.96229L5.94979 0.305288C6.04203 0.209778 6.15238 0.133596 6.27438 0.0811869C6.39639 0.0287779 6.52761 0.00119157 6.66039 3.77564e-05C6.79316 -0.00111606 6.92484 0.0241859 7.04774 0.0744668C7.17064 0.124748 7.28229 0.199001 7.37618 0.292893C7.47007 0.386786 7.54433 0.498438 7.59461 0.621334C7.64489 0.74423 7.67019 0.87591 7.66904 1.00869C7.66788 1.14147 7.6403 1.27269 7.58789 1.39469C7.53548 1.5167 7.4593 1.62704 7.36379 1.71929L2.41379 6.66929L7.36379 11.6193C7.54594 11.8079 7.64674 12.0605 7.64446 12.3227C7.64218 12.5849 7.53701 12.8357 7.35161 13.0211C7.1662 13.2065 6.91538 13.3117 6.65319 13.314C6.39099 13.3162 6.13839 13.2154 5.94979 13.0333L0.292787 7.37629Z" fill="white"/>
+                    </svg>
+                    <span class="day-text">Сьогодні</span>
+                    <svg class="arrow" fill="none" viewBox="0 0 7.669 13.314" style="transform: rotate(180deg) scaleY(-1);">
+                        <path d="M0.292787 7.37629C0.105316 7.18876 0 6.93445 0 6.66929C0 6.40412 0.105316 6.14982 0.292787 5.96229L5.94979 0.305288C6.04203 0.209778 6.15238 0.133596 6.27438 0.0811869C6.39639 0.0287779 6.52761 0.00119157 6.66039 3.77564e-05C6.79316 -0.00111606 6.92484 0.0241859 7.04774 0.0744668C7.17064 0.124748 7.28229 0.199001 7.37618 0.292893C7.47007 0.386786 7.54433 0.498438 7.59461 0.621334C7.64489 0.74423 7.67019 0.87591 7.66904 1.00869C7.66788 1.14147 7.6403 1.27269 7.58789 1.39469C7.53548 1.5167 7.4593 1.62704 7.36379 1.71929L2.41379 6.66929L7.36379 11.6193C7.54594 11.8079 7.64674 12.0605 7.64446 12.3227C7.64218 12.5849 7.53701 12.8357 7.35161 13.0211C7.1662 13.2065 6.91538 13.3117 6.65319 13.314C6.39099 13.3162 6.13839 13.2154 5.94979 13.0333L0.292787 7.37629Z" fill="white"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <svg class="pie-chart" viewBox="0 0 188 174" fill="none">
+                    <path d="M11.3957 95.0945C9.3454 74.1718 15.3111 53.2506 28.088 36.5558C40.865 19.8611 59.5011 8.63683 80.2328 5.14975C100.965 1.66267 122.247 6.17261 139.783 17.7688C157.318 29.365 169.8 47.1834 174.707 67.6255L94 87L11.3957 95.0945Z" fill="white"/>
+                    <path d="M173.95 64.7078C177.598 77.7888 177.98 91.5648 175.063 104.828C172.146 118.091 166.019 130.435 157.22 140.779C148.421 151.123 137.219 159.15 124.595 164.155C111.971 169.161 98.3124 170.993 84.8158 169.49L94 87L173.95 64.7078Z" fill="#FFAD8F"/>
+                    <path d="M84.8158 169.49C65.9041 167.385 48.2902 158.845 34.9241 145.301C21.558 131.758 13.2514 114.032 11.3957 95.0945L94 87L84.8158 169.49Z" fill="#BBE0FF"/>
+                    <!-- Labels -->
+                    <text x="75" y="35" font-family="Inter" font-size="12" font-weight="600" fill="white">52%</text>
+                    <text x="140" y="120" font-family="Inter" font-size="12" font-weight="600" fill="black">28%</text>
+                    <text x="53" y="135" font-family="Inter" font-size="12" font-weight="600" fill="white">20%</text>
+                </svg>
+
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: white;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">Вуглеводи</span>
+                            <span class="legend-value">52% (73 гр)</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #BBE0FF;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">Жири</span>
+                            <span class="legend-value">20% (56 гр)</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FFAD8F;"></div>
+                        <div class="legend-text">
+                            <span class="legend-label">Білки</span>
+                            <span class="legend-value">28% (49 гр)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="totals">
+                <div class="total-section">
+                    <h3 class="total-header">Ціль</h3>
+                    <div class="total-divider"></div>
+                    <div class="total-cards">
+                        <div class="total-card">
+                            <span class="card-label">Вуглеводи</span>
+                            <div class="card-values">
+                                <span class="card-target">140</span>
+                                <span class="card-remaining">67</span>
+                            </div>
+                        </div>
+                        <div class="total-card">
+                            <span class="card-label">Жири</span>
+                            <div class="card-values">
+                                <span class="card-target">85</span>
+                                <span class="card-remaining">29</span>
+                            </div>
+                        </div>
+                        <div class="total-card">
+                            <span class="card-label">Білки</span>
+                            <div class="card-values">
+                                <span class="card-target">175</span>
+                                <span class="card-remaining">126</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="food-list">
+                <div class="food-title">Високобілкові страви</div>
+                <div class="food-divider"></div>
+                <div class="food-row">
+                    <span class="food-name">Індичка запечена</span>
+                    <span class="food-protein">21 гр</span>
+                </div>
+                <div class="food-divider"></div>
+                <div class="food-row">
+                    <span class="food-name">Печериці запечені з сиром</span>
+                    <span class="food-protein">17 гр</span>
+                </div>
+                <div class="food-divider"></div>
+                <div class="food-row">
+                    <span class="food-name">Чіа-пудинг на мигдалевому м...</span>
+                    <span class="food-protein">11 гр</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function goToCalories() {
+            window.location.href = 'ccal-info.html';
+        }
+    </script>
+</body>
+</html>

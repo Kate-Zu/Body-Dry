@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - Успішна оплата</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+        }
+
+        .arrow-back {
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            width: 39px;
+            height: 39px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .arrow-back:hover {
+            opacity: 0.8;
+        }
+
+        .content {
+            position: absolute;
+            top: 145px;
+            left: 19px;
+            width: 353px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .header-section {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .main-title {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -0.18px;
+        }
+
+        .main-subtitle {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.25;
+        }
+
+        .subscription-card {
+            background: rgba(187, 224, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 25px 16px;
+            height: 520px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .subscription-header {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .subscription-title {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 21px;
+            letter-spacing: -0.4px;
+        }
+
+        .subscription-description {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.25;
+            color: rgba(255, 255, 255, 0.7);
+            height: 30px;
+        }
+
+        .price-section {
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: -0.4px;
+        }
+
+        .price-period {
+            font-size: 12px;
+        }
+
+        .button-select {
+            background: #FEFFFC;
+            color: #060603;
+            height: 56px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .button-select:hover {
+            background: #e8e9e6;
+        }
+
+        .divider {
+            height: 0.5px;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .advantages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .advantage-item {
+            display: flex;
+            gap: 17px;
+            align-items: flex-start;
+        }
+
+        .advantage-icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .advantage-text {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 21px;
+            letter-spacing: -0.4px;
+            flex: 1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .alert-box {
+            background: #BBE0FF;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            width: 342px;
+            overflow: hidden;
+        }
+
+        .alert-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            padding-top: 12px;
+        }
+
+        .alert-icon {
+            width: 48px;
+            height: 48px;
+            padding: 4px 0 8px;
+        }
+
+        .alert-title {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 22px;
+            color: #060603;
+            text-align: center;
+            letter-spacing: -0.4px;
+            padding: 0 16px;
+        }
+
+        .alert-subtitle {
+            font-size: 10px;
+            font-weight: 400;
+            line-height: 18px;
+            color: rgba(6, 6, 3, 0.7);
+            text-align: center;
+            letter-spacing: -0.4px;
+            padding: 0 16px 16px;
+        }
+
+        .alert-button {
+            background: #060603;
+            color: #FEFFFC;
+            border: none;
+            border-top: 0.33px solid #FEFFFC;
+            height: 44px;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .alert-button:hover {
+            background: #1a1a17;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="arrow-back" onclick="goBack()">
+            <svg fill="none" viewBox="0 0 39 39">
+                <path d="M15 19.4958C15 19.6426 15.0265 19.7781 15.0796 19.9023C15.1385 20.0265 15.2269 20.1451 15.3448 20.258L22.2318 26.712C22.4322 26.904 22.6739 27 22.9568 27C23.1513 27 23.3251 26.9548 23.4784 26.8645C23.6375 26.7798 23.7642 26.6612 23.8585 26.5088C23.9528 26.3619 24 26.1982 24 26.0175C24 25.7465 23.891 25.5065 23.6729 25.2976L17.4666 19.4958L23.6729 13.694C23.891 13.485 24 13.2479 24 12.9825C24 12.7962 23.9528 12.6296 23.8585 12.4828C23.7642 12.336 23.6375 12.2202 23.4784 12.1355C23.3251 12.0452 23.1513 12 22.9568 12C22.6739 12 22.4322 12.0932 22.2318 12.2795L15.3448 18.7335C15.2269 18.8464 15.1385 18.965 15.0796 19.0892C15.0265 19.2134 15 19.349 15 19.4958Z" fill="#FEFFFC"/>
+            </svg>
+        </div>
+
+        <div class="content">
+            <div class="header-section">
+                <h1 class="main-title">Обери свій план</h1>
+                <p class="main-subtitle">Щоб завершити процес реєстрації, будь ласка, здійсніть оплату</p>
+            </div>
+
+            <div class="subscription-card">
+                <div class="subscription-header">
+                    <h2 class="subscription-title">BodyPro</h2>
+                    <p class="subscription-description">Жодних шаблонів — тільки точні рішення, адаптовані під тебе</p>
+                </div>
+
+                <div class="price-section">
+                    274 UAH <span class="price-period">/ month</span>
+                </div>
+
+                <button class="button-select" onclick="showSuccessAlert()">ОБРАТИ</button>
+
+                <div class="divider"></div>
+
+                <div class="advantages-list">
+                    <div class="advantage-item">
+                        <svg class="advantage-icon" fill="none" viewBox="0 0 22 22">
+                            <path d="M16.4175 9.82667H13.585V3.22667C13.585 1.68667 12.7508 1.375 11.7333 2.53L11 3.36417L4.79417 10.4225C3.94167 11.385 4.29917 12.1733 5.5825 12.1733H8.415V18.7733C8.415 20.3133 9.24917 20.625 10.2667 19.47L11 18.6358L17.2058 11.5775C18.0583 10.615 17.7008 9.82667 16.4175 9.82667Z" fill="#BBE0FF"/>
+                        </svg>
+                        <p class="advantage-text">Тепер твій щоденник завжди у тебе під рукою</p>
+                    </div>
+
+                    <div class="advantage-item">
+                        <svg class="advantage-icon" fill="none" viewBox="0 0 22 22">
+                            <path d="M16.4175 9.82667H13.585V3.22667C13.585 1.68667 12.7508 1.375 11.7333 2.53L11 3.36417L4.79417 10.4225C3.94167 11.385 4.29917 12.1733 5.5825 12.1733H8.415V18.7733C8.415 20.3133 9.24917 20.625 10.2667 19.47L11 18.6358L17.2058 11.5775C18.0583 10.615 17.7008 9.82667 16.4175 9.82667Z" fill="#BBE0FF"/>
+                        </svg>
+                        <p class="advantage-text">AI-генерація плану сушки тіла</p>
+                    </div>
+
+                    <div class="advantage-item">
+                        <svg class="advantage-icon" fill="none" viewBox="0 0 22 22">
+                            <path d="M16.4175 9.82667H13.585V3.22667C13.585 1.68667 12.7508 1.375 11.7333 2.53L11 3.36417L4.79417 10.4225C3.94167 11.385 4.29917 12.1733 5.5825 12.1733H8.415V18.7733C8.415 20.3133 9.24917 20.625 10.2667 19.47L11 18.6358L17.2058 11.5775C18.0583 10.615 17.7008 9.82667 16.4175 9.82667Z" fill="#BBE0FF"/>
+                        </svg>
+                        <p class="advantage-text">Персоналізоване ведення</p>
+                    </div>
+
+                    <div class="advantage-item">
+                        <svg class="advantage-icon" fill="none" viewBox="0 0 22 22">
+                            <path d="M16.4175 9.82667H13.585V3.22667C13.585 1.68667 12.7508 1.375 11.7333 2.53L11 3.36417L4.79417 10.4225C3.94167 11.385 4.29917 12.1733 5.5825 12.1733H8.415V18.7733C8.415 20.3133 9.24917 20.625 10.2667 19.47L11 18.6358L17.2058 11.5775C18.0583 10.615 17.7008 9.82667 16.4175 9.82667Z" fill="#BBE0FF"/>
+                        </svg>
+                        <p class="advantage-text">Слідкуй за власними досягненнями завдяки чіткій аналітиці</p>
+                    </div>
+
+                    <div class="advantage-item">
+                        <svg class="advantage-icon" fill="none" viewBox="0 0 22 22">
+                            <path d="M16.4175 9.82667H13.585V3.22667C13.585 1.68667 12.7508 1.375 11.7333 2.53L11 3.36417L4.79417 10.4225C3.94167 11.385 4.29917 12.1733 5.5825 12.1733H8.415V18.7733C8.415 20.3133 9.24917 20.625 10.2667 19.47L11 18.6358L17.2058 11.5775C18.0583 10.615 17.7008 9.82667 16.4175 9.82667Z" fill="#BBE0FF"/>
+                        </svg>
+                        <p class="advantage-text">Пришвидшуй час планування із готовими меню та стравами</p>
+                    </div>
+
+                    <div class="advantage-item">
+                        <svg class="advantage-icon" fill="none" viewBox="0 0 22 22">
+                            <path d="M16.4175 9.82667H13.585V3.22667C13.585 1.68667 12.7508 1.375 11.7333 2.53L11 3.36417L4.79417 10.4225C3.94167 11.385 4.29917 12.1733 5.5825 12.1733H8.415V18.7733C8.415 20.3133 9.24917 20.625 10.2667 19.47L11 18.6358L17.2058 11.5775C18.0583 10.615 17.7008 9.82667 16.4175 9.82667Z" fill="#BBE0FF"/>
+                        </svg>
+                        <p class="advantage-text">Професійна високоточна система зіставлення норм КБЖУ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Alert Overlay -->
+        <div class="overlay" id="successOverlay" style="display: none;">
+            <div class="alert-box">
+                <div class="alert-content">
+                    <svg class="alert-icon" fill="none" viewBox="0 0 48 48">
+                        <g clip-path="url(#clip0)">
+                            <path d="M5.53711 31.9962L0.329589 44.0687C-0.120118 45.1121 0.0827629 46.2755 0.85913 47.105C1.40625 47.6891 2.13684 48 2.89563 48C3.21387 48 3.5376 47.9451 3.854 47.8326L11.7817 45.0146L5.53711 31.9962Z" fill="#060603"/>
+                            <path d="M10.478 20.5411L7.01404 28.5725L14.4467 44.0673L20.6975 41.8455L10.478 20.5411Z" fill="#060603"/>
+                            <path d="M14.1801 12.9829C13.6549 12.4105 12.7654 12.3721 12.193 12.8968C11.6206 13.422 11.5825 14.3115 12.1073 14.8839L12.6588 15.4852L11.955 17.1174L23.3624 40.8984L32.8696 37.519L33.2721 37.9578C33.5497 38.2603 33.9287 38.4133 34.3088 38.4133C34.6487 38.4133 34.9889 38.291 35.2592 38.0435C35.8315 37.5183 35.8696 36.6288 35.3448 36.0568L14.1801 12.9829Z" fill="#060603"/>
+                            <path d="M37.8065 29.8755C37.8065 28.8984 37.0236 28.1067 36.0579 28.1067C35.0918 28.1067 34.3088 28.8984 34.3088 29.8755C34.3088 30.8522 35.0918 31.6439 36.0579 31.6439C37.0236 31.6439 37.8065 30.8522 37.8065 29.8755Z" fill="#060603"/>
+                            <path d="M40.4183 10.8014C40.4183 9.82471 39.6354 9.03296 38.6693 9.03296C37.7036 9.03296 36.9207 9.82471 36.9207 10.8014C36.9207 11.7781 37.7036 12.5698 38.6693 12.5698C39.6354 12.5698 40.4183 11.7781 40.4183 10.8014Z" fill="#060603"/>
+                            <path d="M43.9395 8.00574C46.129 8.00574 47.9106 6.2102 47.9106 4.00305C47.9106 1.79553 46.1294 0 43.9395 0C41.7495 0 39.9683 1.79553 39.9683 4.00305C39.9683 6.2102 41.7499 8.00574 43.9395 8.00574Z" fill="#060603"/>
+                            <path d="M25.3077 16.8446C25.3077 15.8679 24.5248 15.0762 23.5587 15.0762C22.593 15.0762 21.8101 15.8679 21.8101 16.8446C21.8101 17.8213 22.593 18.613 23.5587 18.613C24.5248 18.613 25.3077 17.8213 25.3077 16.8446Z" fill="#060603"/>
+                            <path d="M34.4216 3.77747C34.4216 2.80078 33.6383 2.00903 32.6726 2.00903C31.7065 2.00903 30.9236 2.80078 30.9236 3.77747C30.9236 4.75452 31.7065 5.54626 32.6726 5.54626C33.6383 5.54626 34.4216 4.75452 34.4216 3.77747Z" fill="#060603"/>
+                            <path d="M22.9098 9.5874H23.5671V10.27C23.5671 11.0468 24.1967 11.6763 24.9734 11.6763C25.7501 11.6763 26.3796 11.0468 26.3796 10.27V9.5874H27.037C27.8137 9.5874 28.4432 8.95752 28.4432 8.18115C28.4432 7.40442 27.8137 6.7749 27.037 6.7749H26.3796V6.09192C26.3796 5.31555 25.7501 4.68567 24.9734 4.68567C24.1967 4.68567 23.5671 5.31555 23.5671 6.09192V6.7749H22.9098C22.1331 6.7749 21.5035 7.40442 21.5035 8.18115C21.5035 8.95752 22.1331 9.5874 22.9098 9.5874Z" fill="#060603"/>
+                            <path d="M45.3318 9.39368C44.5627 9.50391 44.0288 10.2162 44.139 10.9849C44.1793 11.2679 44.2123 11.543 44.2416 11.8143C44.5759 14.9169 44.1753 17.2687 43.0195 18.9814C41.762 20.8444 39.4307 21.9371 37.2184 21.7002C36.7013 21.6445 36.1923 21.5167 35.7059 21.3267C35.7949 21.1732 35.8773 21.0161 35.9528 20.8561C36.3596 19.9948 36.5284 19.0034 36.4625 18.0194C36.412 17.2687 36.2252 16.5227 35.9011 15.8412C35.2548 14.4818 34.1664 13.5524 32.8359 13.2239C31.3682 12.8617 29.7499 13.8373 29.228 15.3984C28.8874 16.4172 28.9772 17.5825 29.4946 18.8617C29.9246 19.9248 30.5541 20.8846 31.3293 21.6998C30.6291 22.073 29.8059 22.344 28.901 22.4868C28.1338 22.608 27.6101 23.328 27.7313 24.0952C27.8405 24.7881 28.4385 25.2821 29.1185 25.2821C29.1914 25.2821 29.2654 25.2766 29.3394 25.2649C31.0199 24.9994 32.5217 24.3845 33.7134 23.5082C34.7036 24.0322 35.7902 24.3754 36.9188 24.4962C37.2261 24.5292 37.533 24.5453 37.8398 24.5453C40.797 24.5453 43.6721 23.0413 45.3505 20.5547C47.0156 18.0875 47.5298 14.8268 46.923 10.5864C46.8127 9.81775 46.0997 9.28345 45.3318 9.39368ZM31.8955 16.2898C31.9526 16.1191 32.1105 15.9862 32.1877 15.9613C32.8407 16.1353 33.2025 16.7153 33.3611 17.0489C33.7511 17.8689 33.7701 18.8921 33.4098 19.6556C33.3951 19.6868 33.3798 19.7179 33.364 19.7487C32.8282 19.1858 32.3932 18.5281 32.102 17.8074C31.8464 17.1753 31.775 16.6505 31.8955 16.2898Z" fill="#060603"/>
+                        </g>
+                        <defs>
+                            <clipPath id="clip0">
+                                <rect fill="white" height="48" width="48"/>
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <p class="alert-title">Вітаємо з підпискою BodyPro!</p>
+                    <p class="alert-subtitle">Ставай найкращою версією себе разом із підпискою BodyPro.</p>
+                </div>
+                <button class="alert-button" onclick="proceed()">Перейти</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function showSuccessAlert() {
+            document.getElementById('successOverlay').style.display = 'flex';
+        }
+
+        function proceed() {
+            console.log('Proceeding to app...');
+            window.location.href = 'download.html';
+        }
+    </script>
+</body>
+</html>

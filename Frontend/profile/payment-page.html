@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body&Dry - План підписки</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #060603;
+            color: #FEFFFC;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 390px;
+            width: 100%;
+            min-height: 844px;
+            position: relative;
+        }
+
+        .header {
+            padding: 65px 22px 20px;
+            display: flex;
+            align-items: center;
+            gap: 45px;
+        }
+
+        .back-button {
+            background: rgba(244, 244, 244, 0.1);
+            border: none;
+            border-radius: 50px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .content {
+            padding: 0 19px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .header-text {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .highlight {
+            color: #BBE0FF;
+        }
+
+        .plan-card {
+            background: rgba(187, 224, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .plan-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .plan-description {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .price-period {
+            font-size: 12px;
+        }
+
+        .selected-button {
+            background: rgba(254, 255, 252, 0.3);
+            border: none;
+            border-radius: 10px;
+            padding: 17px;
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            height: 0.5px;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .feature {
+            display: flex;
+            gap: 17px;
+            align-items: center;
+        }
+
+        .feature-icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .next-payment {
+            border: 1px solid rgba(254, 255, 252, 0.5);
+            border-radius: 62px;
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button" onclick="goBack()">
+                <svg width="20" height="20" fill="none">
+                    <path d="M13 4L7 10L13 16" stroke="#FEFFFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <h1 class="title">План підписки</h1>
+        </div>
+
+        <div class="content">
+            <p class="header-text">У тебе <span class="highlight">BodyPro</span>, насолоджуйся!</p>
+
+            <div class="plan-card">
+                <div>
+                    <h3 class="plan-title">BodyPro</h3>
+                    <p class="plan-description">Жодних шаблонів — тільки точні рішення, адаптовані під тебе</p>
+                </div>
+
+                <p class="price">274 UAH <span class="price-period">/ month</span></p>
+
+                <button class="selected-button">Обрано</button>
+
+                <div class="divider"></div>
+
+                <div class="features-list">
+                    <div class="feature">
+                        <svg class="feature-icon" viewBox="0 0 22 22" fill="none">
+                            <path d="M6.41699 13.75L10.0837 17.4167L20.167 7.33333" stroke="#BBE0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19.25 11C19.25 15.5563 15.5563 19.25 11 19.25C6.44365 19.25 2.75 15.5563 2.75 11C2.75 6.44365 6.44365 2.75 11 2.75C11.9167 2.75 12.7917 2.91667 13.5833 3.20833" stroke="#BBE0FF" stroke-width="2"/>
+                        </svg>
+                        <p class="feature-text">Тепер твій щоденник завжди у тебе під рукою</p>
+                    </div>
+
+                    <div class="feature">
+                        <svg class="feature-icon" viewBox="0 0 22 22" fill="none">
+                            <path d="M6.41699 13.75L10.0837 17.4167L20.167 7.33333" stroke="#BBE0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19.25 11C19.25 15.5563 15.5563 19.25 11 19.25C6.44365 19.25 2.75 15.5563 2.75 11C2.75 6.44365 6.44365 2.75 11 2.75C11.9167 2.75 12.7917 2.91667 13.5833 3.20833" stroke="#BBE0FF" stroke-width="2"/>
+                        </svg>
+                        <p class="feature-text">AI-генерація плану сушки тіла</p>
+                    </div>
+
+                    <div class="feature">
+                        <svg class="feature-icon" viewBox="0 0 22 22" fill="none">
+                            <path d="M6.41699 13.75L10.0837 17.4167L20.167 7.33333" stroke="#BBE0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19.25 11C19.25 15.5563 15.5563 19.25 11 19.25C6.44365 19.25 2.75 15.5563 2.75 11C2.75 6.44365 6.44365 2.75 11 2.75C11.9167 2.75 12.7917 2.91667 13.5833 3.20833" stroke="#BBE0FF" stroke-width="2"/>
+                        </svg>
+                        <p class="feature-text">Персоналізоване ведення</p>
+                    </div>
+
+                    <div class="feature">
+                        <svg class="feature-icon" viewBox="0 0 22 22" fill="none">
+                            <path d="M6.41699 13.75L10.0837 17.4167L20.167 7.33333" stroke="#BBE0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19.25 11C19.25 15.5563 15.5563 19.25 11 19.25C6.44365 19.25 2.75 15.5563 2.75 11C2.75 6.44365 6.44365 2.75 11 2.75C11.9167 2.75 12.7917 2.91667 13.5833 3.20833" stroke="#BBE0FF" stroke-width="2"/>
+                        </svg>
+                        <p class="feature-text">Слідкуй за власними досягненнями завдяки чіткій аналітиці</p>
+                    </div>
+
+                    <div class="feature">
+                        <svg class="feature-icon" viewBox="0 0 22 22" fill="none">
+                            <path d="M6.41699 13.75L10.0837 17.4167L20.167 7.33333" stroke="#BBE0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19.25 11C19.25 15.5563 15.5563 19.25 11 19.25C6.44365 19.25 2.75 15.5563 2.75 11C2.75 6.44365 6.44365 2.75 11 2.75C11.9167 2.75 12.7917 2.91667 13.5833 3.20833" stroke="#BBE0FF" stroke-width="2"/>
+                        </svg>
+                        <p class="feature-text">Пришвидшуй час планування із готовими меню та стравами</p>
+                    </div>
+
+                    <div class="feature">
+                        <svg class="feature-icon" viewBox="0 0 22 22" fill="none">
+                            <path d="M6.41699 13.75L10.0837 17.4167L20.167 7.33333" stroke="#BBE0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M19.25 11C19.25 15.5563 15.5563 19.25 11 19.25C6.44365 19.25 2.75 15.5563 2.75 11C2.75 6.44365 6.44365 2.75 11 2.75C11.9167 2.75 12.7917 2.91667 13.5833 3.20833" stroke="#BBE0FF" stroke-width="2"/>
+                        </svg>
+                        <p class="feature-text">Професійна високоточна система зіставлення норм КБЖУ</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-payment">* Наступний платіж 17.06.2026</div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
