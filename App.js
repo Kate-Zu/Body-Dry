@@ -1,20 +1,25 @@
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { AppNavigator } from './src/navigation';
+import { LanguageProvider } from './src/i18n';
+import { ErrorBoundary } from './src/components';
+
+// Global error handler for unhandled promise rejections
+const handleGlobalError = (error, errorInfo) => {
+  // Log to console in development
+  console.error('Global Error:', error);
+  
+  // TODO: Send to error tracking service (Sentry, Crashlytics, etc.)
+  // Example: Sentry.captureException(error, { extra: errorInfo });
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ErrorBoundary onError={handleGlobalError}>
+      <LanguageProvider>
+        <StatusBar style="light" />
+        <AppNavigator />
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
